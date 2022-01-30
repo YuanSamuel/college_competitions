@@ -1,3 +1,4 @@
+import 'package:college_competitions/models/Job.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
@@ -75,7 +76,7 @@ class _CreateJobScreenState extends State<CreateJobScreen> {
                             width: width * 0.1,
                           ),
                           Text(
-                            'Create Event',
+                            'Create Job',
                             style: StyleConstants.medTextBold
                                 .copyWith(color: Colors.white),
                           )
@@ -171,6 +172,7 @@ class _CreateJobScreenState extends State<CreateJobScreen> {
                         SizedBox(height: height * 0.03,),
                         GestureDetector(
                           onTap: ()  {
+
                             Navigator.pop(context);
                           },
                           child: Container(

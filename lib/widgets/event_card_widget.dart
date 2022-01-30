@@ -35,7 +35,7 @@ class _EventCardWidgetState extends State<EventCardWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Navigator.push(context, new MaterialPageRoute(builder: (_) => AcceptEventScreen()));
+        Navigator.push(context, new MaterialPageRoute(builder: (_) => AcceptEventScreen(event: widget.event)));
       },
       child: Container(
         height: height * 0.25,

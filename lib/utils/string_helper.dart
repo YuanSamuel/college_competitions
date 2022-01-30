@@ -18,4 +18,13 @@ class StringHelper {
   String getDateString(DateTime time) {
     return time.month.toString() + '/' + time.day.toString() + '/' + time.year.toString();
   }
+
+  String getTimeString(DateTime time) {
+    int hour = time.hour % 12;
+    if (hour == 0) {
+      hour++;
+    }
+    bool pm = hour >= 12;
+    return hour.toString() + ":" + time.minute.toString() + (pm ? 'pm' : 'am');
+  }
 }

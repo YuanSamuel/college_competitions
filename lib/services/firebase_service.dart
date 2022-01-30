@@ -104,4 +104,10 @@ class FirebaseService {
           .set(newCollege.toJson());
     }
   }
+
+  Future<User> getOrganizer(String id) async {
+    DocumentSnapshot snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(id).get();
+    return User.fromSnapshot(snapshot);
+  }
 }

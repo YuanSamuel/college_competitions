@@ -34,7 +34,7 @@ class _JobCardWidgetState extends State<JobCardWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        Navigator.push(context, new MaterialPageRoute(builder: (_) => AcceptJobScreen()));
+        Navigator.push(context, new MaterialPageRoute(builder: (_) => AcceptJobScreen(job: widget.job,)));
       },
       child: Container(
         height: height * 0.25,
