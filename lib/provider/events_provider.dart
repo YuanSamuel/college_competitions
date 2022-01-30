@@ -4,9 +4,11 @@ import 'package:college_competitions/models/User.dart';
 import 'package:flutter/foundation.dart';
 
 class EventsProvider extends ChangeNotifier {
-  List<Event> _events = [];
+  List<Event> _userEvents = [];
+  List<Event> _allEvents = [];
 
-  List<Event> get events => _events;
+  List<Event> get userEvents => _userEvents;
+  List<Event> get allEvents => _allEvents;
 
   Future<void> setUpListeners(User user) async {
     FirebaseFirestore.instance
@@ -14,11 +16,23 @@ class EventsProvider extends ChangeNotifier {
         .where('college', isEqualTo: user.college)
         .snapshots()
         .listen((QuerySnapshot query) {
-          _events = [];
-          for (DocumentSnapshot snapshot in query.docs) {
-            _events.add(Event.fromSnapshot(snapshot));
-          }
-          notifyListeners();
+      _userEvents = [];
+      for (DocumentSnapshot snapshot in query.docs) {
+        _userEvents.add(Event.fromSnapshot(snapshot));
+      }
+      notifyListeners();
+    });
+
+    FirebaseFirestore.instance
+        .collection('events')
+        .where('college', isEqualTo: user.college)
+        .snapshots()
+        .listen((QuerySnapshot query) {
+      _allEvents = [];
+      for (DocumentSnapshot snapshot in query.docs) {
+        _allEvents.add(Event.fromSnapshot(snapshot));
+      }
+      notifyListeners();
     });
   }
 }
