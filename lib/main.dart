@@ -1,12 +1,12 @@
-import 'package:college_competitions/models/College.dart';
-import 'package:college_competitions/services/college_data_service.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
@@ -26,21 +26,39 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        body: Center(
-          child: TextButton(
-            onPressed: () async {
-              List<College> colleges = await CollegeDataService().getCollegeFromName("texas");
-              CollegeDataService().getCollegeImage(colleges[0]);
-              for (College college in colleges) {
-                print(college.name);
-                print(college.domains);
-                print(college.logo);
-              }
-            },
-            child: Text('Get Colleges'),
-          ),
-        ),
+      home: Scaffold(),
+    );
+  }
+}
+
+class MapScreen extends StatefulWidget {
+  const MapScreen({Key? key}) : super(key: key);
+
+  @override
+  _MapScreenState createState() => _MapScreenState();
+}
+
+class _MapScreenState extends State<MapScreen> {
+  static const _my_college_camera_position = CameraPosition(
+      target: LatLng(30.2849, 97.7341),
+      zoom: 10);
+
+  late GoogleMapController _googleMapController;
+
+  @override
+  void dispose(){
+    _googleMapController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GoogleMap(
+        myLocationButtonEnabled: false,
+        zoomControlsEnabled: false,
+        initialCameraPosition: _my_college_camera_position,
+        onMapCreated: (controller) => _googleMapController = controller,
       ),
     );
   }
