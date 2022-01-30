@@ -1,3 +1,4 @@
+import 'package:college_competitions/widgets/job_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -48,20 +49,12 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('map screen'),
-      ),
-      // body: GoogleMap(
-      //   mapType: MapType.normal,
-      //   myLocationButtonEnabled: false,
-      //   zoomControlsEnabled: false,
-      //   initialCameraPosition: _my_college_camera_position,
-      //   onMapCreated: (controller) => _googleMapController = controller,
-      //   //adding markers to map
-      //   markers: {
-      //     // markers should go in here
-      //   },
-      // ),
+      body: Column(
+        children: [
+          JobMapWidget(),
+        ],
+      )
+
     );
   }
 }

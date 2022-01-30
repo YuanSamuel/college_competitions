@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LeaderboardScreen extends StatefulWidget {
@@ -12,7 +13,12 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
   Widget build(BuildContext context) {
     return Container(
       child: Center(
-        child: Text('leaderboard'),
+        child: ElevatedButton(
+          onPressed: (){
+            FirebaseAuth.instance.signOut();
+          },
+          child: Text('Log Out'),
+        ),
       ),
     );
   }

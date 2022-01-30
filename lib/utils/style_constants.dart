@@ -41,6 +41,8 @@ class StyleConstants {
 
   static TextStyle subTextReg = TextStyle(fontSize: 15.0, fontWeight: FontWeight.w400, color: darkBlue);
 
+  static TextStyle subTextBold = TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, color: darkBlue);
+
 
 
 
