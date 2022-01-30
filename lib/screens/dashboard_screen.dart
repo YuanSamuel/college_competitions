@@ -1,3 +1,4 @@
+import 'package:college_competitions/screens/create_event_screen.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:college_competitions/widgets/event_card_widget.dart';
 import 'package:college_competitions/widgets/job_card_widget.dart';
@@ -19,6 +20,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
   return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: StyleConstants.darkBlue,
+        onPressed: (){
+          Navigator.push(context, new MaterialPageRoute(builder: (_) => CreateEventScreen()));
+        },
+        child: Icon(Icons.add),
+      ),
       body: SingleChildScrollView(
         child: Container(
           child: Padding(
