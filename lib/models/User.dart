@@ -4,19 +4,22 @@ class User {
   String name;
   String college;
   String email;
+  String phone;
   String profileUrl;
   int points;
   List<String> interests;
 
-  DocumentReference reference;
+  DocumentReference? reference;
 
-  User(this.name, this.college, this.email, this.profileUrl, this.points,
-      this.interests, this.reference);
+  User(this.name, this.college, this.email, this.phone, this.profileUrl,
+      this.points, this.interests,
+      {this.reference});
 
   User.fromSnapshot(DocumentSnapshot snapshot)
       : name = snapshot.get('name'),
         college = snapshot.get('college'),
         email = snapshot.get('email'),
+        phone = snapshot.get('phone'),
         profileUrl = snapshot.get('profileUrl'),
         points = snapshot.get('points'),
         interests = List<String>.from(snapshot.get('interests')),
