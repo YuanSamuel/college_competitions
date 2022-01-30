@@ -210,7 +210,7 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                                 child: Text(
                                   widget.event.description,
                                   style: StyleConstants.descTextReg,
-                                  maxLines: 3,
+                                  maxLines: 5,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
