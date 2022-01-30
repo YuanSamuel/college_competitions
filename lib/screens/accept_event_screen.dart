@@ -8,6 +8,7 @@ import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AcceptEventScreen extends StatefulWidget {
   const AcceptEventScreen({Key? key, required this.event}) : super(key: key);
@@ -57,7 +58,7 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                 decoration: BoxDecoration(
                   color: StyleConstants.darkBlue,
                   borderRadius:
-                  BorderRadius.only(bottomRight: Radius.circular(40.0)),
+                      BorderRadius.only(bottomRight: Radius.circular(40.0)),
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(15.0),
@@ -97,13 +98,12 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius:
-                  BorderRadius.only(topLeft: Radius.circular(40.0)),
+                      BorderRadius.only(topLeft: Radius.circular(40.0)),
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                   child: Column(
                     children: [
-
                       FadeAnimationUp(
                         0.8,
                         Column(
@@ -138,7 +138,7 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                               padding: const EdgeInsets.only(top: 25.0),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   SizedBox(
                                     width: 1,
@@ -147,17 +147,17 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                                     1.2,
                                     ClipRRect(
                                       borderRadius:
-                                      BorderRadius.circular(100.0),
+                                          BorderRadius.circular(100.0),
                                       child: Container(
                                         width: width * 0.3,
-                                        height : width * 0.3,
+                                        height: width * 0.3,
                                         child: Image(
                                           image: organizer != null
                                               ? Image.network(
-                                              organizer!.profileUrl)
-                                              .image
+                                                      organizer!.profileUrl)
+                                                  .image
                                               : AssetImage(
-                                              'assets/profpic1.jpg'),
+                                                  'assets/profpic1.jpg'),
                                         ),
                                       ),
                                     ),
@@ -167,22 +167,22 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                                     1.4,
                                     ClipRRect(
                                       borderRadius:
-                                      BorderRadius.circular(100.0),
+                                          BorderRadius.circular(100.0),
                                       child: Container(
                                         width: width * 0.3,
-                                        height : width * 0.3,
+                                        height: width * 0.3,
                                         child: Image(
                                           fit: BoxFit.cover,
                                           image: organizer != null
                                               ? Image.network(UserService()
-                                              .getUserCollege(
-                                              organizer!,
-                                              collegesProvider
-                                                  .colleges!)
-                                              .logoUrl)
-                                              .image
+                                                      .getUserCollege(
+                                                          organizer!,
+                                                          collegesProvider
+                                                              .colleges!)
+                                                      .logoUrl)
+                                                  .image
                                               : AssetImage(
-                                              'assets/profpic1.jpg'),
+                                                  'assets/profpic1.jpg'),
                                         ),
                                       ),
                                     ),
@@ -195,99 +195,166 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                             ),
                             Center(
                               child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: width * 0.05),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: height * 0.05,),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                    ),
                                     FadeAnimationUp(
                                         1.5,
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.info_outline, color: StyleConstants.lightBlue,),
-                                            SizedBox(width: width * 0.05,),
+                                            Icon(
+                                              Icons.info_outline,
+                                              color: StyleConstants.lightBlue,
+                                            ),
+                                            SizedBox(
+                                              width: width * 0.05,
+                                            ),
                                             Container(
                                               width: width * 0.67,
                                               child: Text(
                                                 widget.event.description,
-                                                style: StyleConstants.descTextReg,
+                                                style:
+                                                    StyleConstants.descTextReg,
                                                 maxLines: 5,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                             ),
                                           ],
-                                        )
+                                        )),
+                                    SizedBox(
+                                      height: height * 0.02,
                                     ),
-                                    SizedBox(height: height * 0.02,),
                                     FadeAnimationUp(
                                         1.7,
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.phone, color: StyleConstants.lightBlue,),
-                                            SizedBox(width: width * 0.05,),
-                                            Text(
-                                              organizer != null ? organizer!.phone : '',
-                                              style: StyleConstants.descTextReg,
+                                            Icon(
+                                              Icons.phone,
+                                              color: StyleConstants.lightBlue,
+                                            ),
+                                            SizedBox(
+                                              width: width * 0.05,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                final Uri textLaunchUri = Uri(
+                                                  scheme: 'sms',
+                                                  path: organizer!.phone,
+                                                );
+                                                launch(
+                                                    textLaunchUri.toString());
+                                              },
+                                              child: Text(
+                                                organizer != null
+                                                    ? organizer!.phone
+                                                    : '',
+                                                style:
+                                                    StyleConstants.descTextReg,
+                                              ),
                                             ),
                                           ],
-                                        )
+                                        )),
+                                    SizedBox(
+                                      height: height * 0.02,
                                     ),
-                                    SizedBox(height: height * 0.02,),
                                     FadeAnimationUp(
                                         1.9,
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.email_outlined, color: StyleConstants.lightBlue,),
-                                            SizedBox(width: width * 0.05,),
-                                            Text(
-                                              organizer != null ? organizer!.email : '',
-                                              style: StyleConstants.descTextReg,
+                                            Icon(
+                                              Icons.email_outlined,
+                                              color: StyleConstants.lightBlue,
+                                            ),
+                                            SizedBox(
+                                              width: width * 0.05,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (organizer != null) {
+                                                  final Uri emailLaunchUri =
+                                                      Uri(
+                                                    scheme: 'mailto',
+                                                    path: organizer!.email,
+                                                  );
+                                                  launch(emailLaunchUri
+                                                      .toString());
+                                                }
+                                              },
+                                              child: Text(
+                                                organizer != null
+                                                    ? organizer!.email
+                                                    : '',
+                                                style:
+                                                    StyleConstants.descTextReg,
+                                              ),
                                             ),
                                           ],
-                                        )
+                                        )),
+                                    SizedBox(
+                                      height: height * 0.02,
                                     ),
-                                    SizedBox(height: height * 0.02,),
                                     FadeAnimationUp(
                                         2.1,
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.access_time_outlined, color: StyleConstants.lightBlue,),
-                                            SizedBox(width: width * 0.05,),
+                                            Icon(
+                                              Icons.access_time_outlined,
+                                              color: StyleConstants.lightBlue,
+                                            ),
+                                            SizedBox(
+                                              width: width * 0.05,
+                                            ),
                                             Text(
                                               "${StringHelper().getTimeString(widget.event.date.toDate())} ${StringHelper().getDateString(widget.event.date.toDate())}",
                                               style: StyleConstants.descTextReg,
                                             ),
                                           ],
-                                        )
+                                        )),
+                                    SizedBox(
+                                      height: height * 0.02,
                                     ),
-                                    SizedBox(height: height * 0.02,),
                                     FadeAnimationUp(
                                         2.3,
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: [
-                                            Icon(Icons.location_on, color: StyleConstants.lightBlue,),
-                                            SizedBox(width: width * 0.05,),
+                                            Icon(
+                                              Icons.location_on,
+                                              color: StyleConstants.lightBlue,
+                                            ),
+                                            SizedBox(
+                                              width: width * 0.05,
+                                            ),
                                             Container(
                                               width: width * 0.67,
-
                                               child: Text(
                                                 location,
-                                                style: StyleConstants.descTextReg,
+                                                style:
+                                                    StyleConstants.descTextReg,
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                             ),
                                           ],
-                                        )
-                                    ),
+                                        )),
                                   ],
                                 ),
-                              ),),
+                              ),
+                            ),
                           ],
                         ),
                       ),

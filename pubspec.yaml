@@ -50,6 +50,7 @@ dependencies:
   curved_navigation_bar: ^1.0.2
   multi_select_flutter: ^4.0.0
   flutter_datetime_picker: ^1.5.1
+  url_launcher: ^6.0.18
 
 dev_dependencies:
   flutter_test:

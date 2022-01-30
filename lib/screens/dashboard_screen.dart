@@ -18,8 +18,10 @@ import 'package:college_competitions/widgets/job_card_widget.dart';
 import 'package:college_competitions/widgets/leaderboard_tile_widget.dart';
 import 'package:college_competitions/widgets/no_opportunities_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'create_event_screen.dart';
 
@@ -86,7 +88,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Campus Connect', style: StyleConstants.medTextReg,),
+                      Text(
+                        'Campus Connect',
+                        style: StyleConstants.medTextReg,
+                      ),
                       IconButton(
                         onPressed: () {
                           FirebaseAuth.instance.signOut();
@@ -246,6 +251,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     style: StyleConstants.medTextBold,
                   ),
                   Container(height: height * 0.6, child: _buildTopSchools()),
+                  SizedBox(
+                    height: height * 0.05,
+                  ),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(children: [
+                      TextSpan(
+                          text: 'College logos from ',
+                          style: TextStyle(color: Colors.black)),
+                      TextSpan(
+                          text: 'clearbit.com',
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launch('https://clearbit.com');
+                            },
+                          style: TextStyle(color: Colors.black))
+                    ]),
+                  ),
                 ],
               ),
             ),
@@ -299,7 +322,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     List<Widget> cards = [];
 
     for (Job job in jobsProvider.allJobs) {
-      if (job.interests.isEmpty || userProvider.user!.interests.contains(job.interests[0])) {
+      if (job.interests.isEmpty ||
+          userProvider.user!.interests.contains(job.interests[0])) {
         cards.add(Padding(
           padding: const EdgeInsets.all(10.0),
           child: JobCardWidget(job: job),
@@ -312,7 +336,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
       }
     }
     for (Event event in eventsProvider.allEvents) {
-      if (event.interests.isEmpty || userProvider.user!.interests.contains(event.interests[0])) {
+      if (event.interests.isEmpty ||
+          userProvider.user!.interests.contains(event.interests[0])) {
         cards.add(Padding(
           padding: const EdgeInsets.all(10.0),
           child: EventCardWidget(event: event),

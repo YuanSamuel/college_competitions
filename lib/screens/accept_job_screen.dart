@@ -9,6 +9,7 @@ import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AcceptJobScreen extends StatefulWidget {
   const AcceptJobScreen({Key? key, required this.job}) : super(key: key);
@@ -104,7 +105,6 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                   padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                   child: Column(
                     children: [
-
                       FadeAnimationUp(
                         0.8,
                         Column(
@@ -151,7 +151,7 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                                           BorderRadius.circular(100.0),
                                       child: Container(
                                         width: width * 0.3,
-                                        height : width * 0.3,
+                                        height: width * 0.3,
                                         child: Image(
                                           image: organizer != null
                                               ? Image.network(
@@ -171,7 +171,7 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                                           BorderRadius.circular(100.0),
                                       child: Container(
                                         width: width * 0.3,
-                                        height : width * 0.3,
+                                        height: width * 0.3,
                                         child: Image(
                                           fit: BoxFit.cover,
                                           image: organizer != null
@@ -195,100 +195,167 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                               ),
                             ),
                             Center(
-                                child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: height * 0.05,),
-                                  FadeAnimationUp(
-                                      1.5,
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Icon(Icons.info_outline, color: StyleConstants.lightBlue,),
-                                          SizedBox(width: width * 0.05,),
-                                          Container(
-                                            width: width * 0.67,
-                                            child: Text(
-                                              widget.job.description,
-                                              style: StyleConstants.descTextReg,
-                                              maxLines: 5,
-                                              overflow: TextOverflow.ellipsis,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: width * 0.05),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: height * 0.05,
+                                    ),
+                                    FadeAnimationUp(
+                                        1.5,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Icon(
+                                              Icons.info_outline,
+                                              color: StyleConstants.lightBlue,
                                             ),
-                                          ),
-                                        ],
-                                      )
-                                  ),
-                                  SizedBox(height: height * 0.02,),
-                                  FadeAnimationUp(
-                                    1.7,
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(Icons.phone, color: StyleConstants.lightBlue,),
-                                        SizedBox(width: width * 0.05,),
-                                        Text(
-                                          organizer != null ? organizer!.phone : '',
-                                          style: StyleConstants.descTextReg,
-                                        ),
-                                      ],
-                                    )
-                                  ),
-                                  SizedBox(height: height * 0.02,),
-                                  FadeAnimationUp(
-                                    1.9,
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(Icons.email_outlined, color: StyleConstants.lightBlue,),
-                                        SizedBox(width: width * 0.05,),
-                                        Text(
-                                          organizer != null ? organizer!.email : '',
-                                          style: StyleConstants.descTextReg,
-                                        ),
-                                      ],
-                                    )
-                                  ),
-                                  SizedBox(height: height * 0.02,),
-                                  FadeAnimationUp(
-                                    2.1,
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(Icons.access_time_outlined, color: StyleConstants.lightBlue,),
-                                        SizedBox(width: width * 0.05,),
-                                        Text(
-                                          "${StringHelper().getTimeString(widget.job.date.toDate())} ${StringHelper().getDateString(widget.job.date.toDate())}",
-                                          style: StyleConstants.descTextReg,
-                                        ),
-                                      ],
-                                    )
-                                  ),
-                                  SizedBox(height: height * 0.02,),
-                                  FadeAnimationUp(
-                                    2.3,
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        Icon(Icons.location_on, color: StyleConstants.lightBlue,),
-                                        SizedBox(width: width * 0.05,),
-                                        Container(
-                                          width: width * 0.67,
-
-                                          child: Text(
-                                            location,
-                                            style: StyleConstants.descTextReg,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ),
-                                ],
+                                            SizedBox(
+                                              width: width * 0.05,
+                                            ),
+                                            Container(
+                                              width: width * 0.67,
+                                              child: Text(
+                                                widget.job.description,
+                                                style:
+                                                    StyleConstants.descTextReg,
+                                                maxLines: 5,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                    SizedBox(
+                                      height: height * 0.02,
+                                    ),
+                                    FadeAnimationUp(
+                                        1.7,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Icon(
+                                              Icons.phone,
+                                              color: StyleConstants.lightBlue,
+                                            ),
+                                            SizedBox(
+                                              width: width * 0.05,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                final Uri textLaunchUri = Uri(
+                                                  scheme: 'sms',
+                                                  path: organizer!.phone,
+                                                );
+                                                launch(
+                                                    textLaunchUri.toString());
+                                              },
+                                              child: Text(
+                                                organizer != null
+                                                    ? organizer!.phone
+                                                    : '',
+                                                style:
+                                                    StyleConstants.descTextReg,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                    SizedBox(
+                                      height: height * 0.02,
+                                    ),
+                                    FadeAnimationUp(
+                                        1.9,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Icon(
+                                              Icons.email_outlined,
+                                              color: StyleConstants.lightBlue,
+                                            ),
+                                            SizedBox(
+                                              width: width * 0.05,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (organizer != null) {
+                                                  final Uri emailLaunchUri =
+                                                      Uri(
+                                                    scheme: 'mailto',
+                                                    path: organizer!.email,
+                                                  );
+                                                  launch(emailLaunchUri
+                                                      .toString());
+                                                }
+                                              },
+                                              child: Text(
+                                                organizer != null
+                                                    ? organizer!.email
+                                                    : '',
+                                                style:
+                                                    StyleConstants.descTextReg,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                    SizedBox(
+                                      height: height * 0.02,
+                                    ),
+                                    FadeAnimationUp(
+                                        2.1,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Icon(
+                                              Icons.access_time_outlined,
+                                              color: StyleConstants.lightBlue,
+                                            ),
+                                            SizedBox(
+                                              width: width * 0.05,
+                                            ),
+                                            Text(
+                                              "${StringHelper().getTimeString(widget.job.date.toDate())} ${StringHelper().getDateString(widget.job.date.toDate())}",
+                                              style: StyleConstants.descTextReg,
+                                            ),
+                                          ],
+                                        )),
+                                    SizedBox(
+                                      height: height * 0.02,
+                                    ),
+                                    FadeAnimationUp(
+                                        2.3,
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Icon(
+                                              Icons.location_on,
+                                              color: StyleConstants.lightBlue,
+                                            ),
+                                            SizedBox(
+                                              width: width * 0.05,
+                                            ),
+                                            Container(
+                                              width: width * 0.67,
+                                              child: Text(
+                                                location,
+                                                style:
+                                                    StyleConstants.descTextReg,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                  ],
+                                ),
                               ),
-                            ),),
+                            ),
                           ],
                         ),
                       ),
