@@ -1,14 +1,33 @@
 import 'package:college_competitions/models/Event.dart';
+import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 
-class UpcomingEventWidget extends StatelessWidget {
-  UpcomingEventWidget({Key? key, required this.event}) : super(key: key);
+class UpcomingEventWidget extends StatefulWidget {
+  const UpcomingEventWidget({Key? key, required this.event}) : super(key: key);
 
   final Event event;
 
+  @override
+  _UpcomingEventWidgetState createState() => _UpcomingEventWidgetState();
+}
+
+class _UpcomingEventWidgetState extends State<UpcomingEventWidget> {
+  String location = '';
+
   double width = StyleConstants.width;
   double height = StyleConstants.height;
+
+  @override
+  void initState() {
+    setLocation();
+    super.initState();
+  }
+
+  Future<void> setLocation() async {
+    location = await StringHelper().getLocationName(widget.event.location);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +86,9 @@ class UpcomingEventWidget extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: height * 0.02,),
-
+          SizedBox(
+            height: height * 0.02,
+          ),
           Column(
             children: [
               Row(
@@ -79,7 +99,7 @@ class UpcomingEventWidget extends StatelessWidget {
                     color: StyleConstants.lightBlue,
                   ),
                   Text(
-                    ' Jester East',
+                    ' ' + location,
                     style: StyleConstants.subTextReg
                         .copyWith(color: StyleConstants.lightBlue),
                   ),
@@ -99,7 +119,10 @@ class UpcomingEventWidget extends StatelessWidget {
                     width: width * 0.01,
                   ),
                   Text(
-                    ' ' + event.registered.length.toString() + '/' + event.capacity.toString(),
+                    ' ' +
+                        widget.event.registered.length.toString() +
+                        '/' +
+                        widget.event.capacity.toString(),
                     style: StyleConstants.subTextReg
                         .copyWith(color: StyleConstants.lightBlue),
                   )
@@ -107,16 +130,18 @@ class UpcomingEventWidget extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: height * 0.02,),
+          SizedBox(
+            height: height * 0.02,
+          ),
           Text(
-            event.description,
+            widget.event.description,
             style: StyleConstants.descTextReg,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
           Spacer(),
           Text(
-            event.name,
+            widget.event.name,
             style: StyleConstants.medTextBold,
           )
         ],
