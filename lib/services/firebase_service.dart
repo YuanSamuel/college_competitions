@@ -45,7 +45,7 @@ class FirebaseService {
   }
 
   Future<void> createJob(Job job) async {
-    await FirebaseFirestore.instance.collection('job').add(job.toJson());
+    await FirebaseFirestore.instance.collection('jobs').add(job.toJson());
   }
 
   Future<User> getUserFromId(String id) async {

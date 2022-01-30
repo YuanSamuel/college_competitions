@@ -199,7 +199,8 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                               child: FadeAnimationUp(
                                 1.5,
                                 Text(
-                                  widget.job.description,
+                                  widget.job.description +
+                                      (organizer != null ? '\n\nPhone Number: ${organizer!.phone} \nEmail: ${organizer!.email}' : ''),
                                   style: StyleConstants.descTextReg,
                                 ),
                               ),

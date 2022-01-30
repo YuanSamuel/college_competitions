@@ -19,9 +19,17 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
-  //TODO : Has to be fixed with different categories
-  var categories = {'Social 1', 'Social 2', 'Social 3'};
-
+  static final List<String> interests = [
+    'Gardening',
+    'Construction',
+    'Cooking',
+    'Software',
+    'Electrical',
+    'Physical Exercise',
+    'Environment',
+    'Social',
+    'Cleanup',
+  ];
   TextEditingController _titleInputController = TextEditingController();
   TextEditingController _descriptionInputController = TextEditingController();
   TextEditingController _locationInputController = TextEditingController();
@@ -29,7 +37,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
   String dropDownInitVal2 = '1';
 
-  String dropDownInitVal = "Social 1";
+  String dropDownInitVal = "Gardening";
 
   double width = StyleConstants.width;
   double height = StyleConstants.height;
@@ -161,7 +169,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                         DropdownButton(
                           value: dropDownInitVal,
                           icon: const Icon(Icons.keyboard_arrow_down),
-                          items: categories.map((String items) {
+                          items: interests.map((String items) {
                             return DropdownMenuItem(
                               value: items,
                               child: Text(items),
@@ -212,7 +220,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                               100,
                               GeoPoint(location.latitude, location.longitude),
                               Timestamp.fromDate(_eventDate!),
-                              [],
+                              [dropDownInitVal],
                               [],
                             );
 

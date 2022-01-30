@@ -1,14 +1,40 @@
+import 'package:college_competitions/models/Job.dart';
+import 'package:college_competitions/models/User.dart';
+import 'package:college_competitions/services/firebase_service.dart';
+import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 
-class JobMapWidget extends StatelessWidget {
-  const JobMapWidget({Key? key}) : super(key: key);
+class JobMapWidget extends StatefulWidget {
+  const JobMapWidget({Key? key, required this.job}) : super(key: key);
+
+  final Job job;
+
+  @override
+  _JobMapWidgetState createState() => _JobMapWidgetState();
+}
+
+class _JobMapWidgetState extends State<JobMapWidget> {
+  String location = '';
+
+  double width = StyleConstants.width;
+  double height = StyleConstants.height;
+  User? organizer;
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
+
+  Future<void> getData() async {
+    organizer = await FirebaseService().getOrganizer(widget.job.organizerId);
+    location = await StringHelper().getLocationName(widget.job.location);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    double height = StyleConstants.height;
-    double width = StyleConstants.width;
-
     return Container(
       width: width * 0.8,
       child: Stack(
@@ -34,11 +60,13 @@ class JobMapWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              'February 18th, 2022',
+                              StringHelper()
+                                  .getDateString(widget.job.date.toDate()),
                               style: StyleConstants.subTextReg,
                             ),
                             Text(
-                              '6:30 PM',
+                              StringHelper()
+                                  .getTimeString(widget.job.date.toDate()),
                               style: StyleConstants.subTextReg,
                             ),
                           ],
@@ -49,7 +77,7 @@ class JobMapWidget extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "Furniture Moving",
+                          widget.job.name,
                           style: StyleConstants.titleTextBold,
                         ),
                         SizedBox(
@@ -64,7 +92,7 @@ class JobMapWidget extends StatelessWidget {
                       children: [
                         Icon(Icons.location_on, size: 15.0),
                         Text(
-                          " Jester East",
+                          location,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: StyleConstants.subTextReg,
@@ -96,7 +124,9 @@ class JobMapWidget extends StatelessWidget {
                 //       ? currentScan.pet.image
                 //       : StyleConstants.defaultPetImageUrl,
                 child: Image(
-                  image: AssetImage('assets/profpic1.jpg'),
+                  image: organizer != null
+                      ? Image.network(organizer!.profileUrl).image
+                      : AssetImage('assets/profpic1.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),

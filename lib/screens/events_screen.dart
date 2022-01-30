@@ -81,7 +81,7 @@ class _EventsScreenState extends State<EventsScreen> {
               Row(
                 children: [
                   Text(
-                    'Featured Events',
+                    'All Events',
                     style: StyleConstants.medTextBold,
                   ),
                   Spacer(),

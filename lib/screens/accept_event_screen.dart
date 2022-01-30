@@ -198,7 +198,8 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                               child: FadeAnimationUp(
                                 1.5,
                                 Text(
-                                  widget.event.description,
+                                  widget.event.description +
+                                      (organizer != null ? '\n\nPhone Number: ${organizer!.phone} \nEmail: ${organizer!.email}' : ''),
                                   style: StyleConstants.descTextReg,
                                 ),
                               ),
