@@ -57,16 +57,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
           // Create event page
           ActionButton(
             onPressed: () {
-              Navigator.push(context, new MaterialPageRoute(builder: (_) => CreateEventScreen()));
+              Navigator.push(context, new MaterialPageRoute(builder: (_) => CreateJobScreen()));
             },
-            icon: const Icon(Icons.event),
+            icon: const Icon(Icons.emoji_people),
           ),
           // Create job page
           ActionButton(
             onPressed: () {
-              Navigator.push(context, new MaterialPageRoute(builder: (_) => CreateJobScreen()));
+              Navigator.push(context, new MaterialPageRoute(builder: (_) => CreateEventScreen()));
             },
-            icon: const Icon(Icons.emoji_people),
+            icon: const Icon(Icons.event),
           ),
         ],
         distance: 110.0,

@@ -2,14 +2,14 @@ import 'package:college_competitions/animations/FadeAnimationUp.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 
-class AcceptJobScreen extends StatefulWidget {
-  const AcceptJobScreen({Key? key}) : super(key: key);
+class AcceptEventScreen extends StatefulWidget {
+  const AcceptEventScreen({Key? key}) : super(key: key);
 
   @override
-  _AcceptJobScreenState createState() => _AcceptJobScreenState();
+  _AcceptEventScreenState createState() => _AcceptEventScreenState();
 }
 
-class _AcceptJobScreenState extends State<AcceptJobScreen> {
+class _AcceptEventScreenState extends State<AcceptEventScreen> {
   double width = StyleConstants.width;
   double height = StyleConstants.height;
 
@@ -162,7 +162,7 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                       FadeAnimationUp(
                         1.6, GestureDetector(
                         onTap: (){Navigator.pop(context);},
-                        child: Container(
+                          child: Container(
                           width: width * .8,
                           height: height * .08,
                           decoration: BoxDecoration(
@@ -184,8 +184,8 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                             ),
                           ),
                           ),
-                        ),
                       ),
+                        ),
                       ),
                       SizedBox(
                         height: 20,

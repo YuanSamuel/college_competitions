@@ -24,7 +24,7 @@ class ExpandingActionButton extends StatelessWidget {
       builder: (BuildContext context, Widget? child) {
         final offset = Offset.fromDirection(
           directionInDegrees * (math.pi / 180.0),
-          progress.value * maxDistance,
+          progress.value * (maxDistance - 30.0),
         );
         return Positioned(
           right: 4.0 + offset.dx,

@@ -26,6 +26,11 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
   @override
   Widget build(BuildContext context) {
     collegesProvider = Provider.of<CollegesProvider>(context);
+    
+    List<College> colleges = [...collegesProvider.colleges!];
+    colleges.sort((College collegeA, College collegeB) {
+      return collegeB.points - collegeA.points;
+    });
 
     return Scaffold(
       body: Container(
@@ -83,8 +88,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 fit: BoxFit.scaleDown,
-                                image: NetworkImage(
-                                    colleges[1].logoUrl))),
+                                image: NetworkImage(colleges[1].logoUrl))),
                       ),
                       Positioned(
                         bottom: 0,
@@ -137,8 +141,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 fit: BoxFit.scaleDown,
-                                image: NetworkImage(
-                                    colleges[0].logoUrl))),
+                                image: NetworkImage(colleges[0].logoUrl))),
                       ),
                       Positioned(
                         bottom: 0,
@@ -191,8 +194,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 fit: BoxFit.scaleDown,
-                                image: NetworkImage(
-                                    colleges[2].logoUrl))),
+                                image: NetworkImage(colleges[2].logoUrl))),
                       ),
                       Positioned(
                         bottom: 0,
@@ -241,8 +243,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                 ),
                 child: Padding(
                     padding: EdgeInsets.only(left: 15.0, top: height * 0.02),
-                    child: _buildTopSchools()
-                    ),
+                    child: _buildTopSchools()),
               ),
             ),
           ],
