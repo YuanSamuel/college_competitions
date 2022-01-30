@@ -52,5 +52,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
