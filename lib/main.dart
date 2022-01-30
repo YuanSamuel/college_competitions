@@ -1,3 +1,4 @@
+import 'package:college_competitions/screens/root_screen.dart';
 import 'package:college_competitions/provider/events_provider.dart';
 import 'package:college_competitions/provider/jobs_provider.dart';
 import 'package:college_competitions/provider/user_provider.dart';
@@ -42,11 +43,14 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: Scaffold(),
+        home: const RootScreen(),
       ),
     );
   }
 }
+
+
