@@ -1,4 +1,5 @@
 import 'package:college_competitions/utils/style_constants.dart';
+import 'package:college_competitions/widgets/featured_event_widget.dart';
 import 'package:college_competitions/widgets/upcoming_event_card_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,14 @@ class EventsScreen extends StatefulWidget {
 class _EventsScreenState extends State<EventsScreen> {
   double width = StyleConstants.width;
   double height = StyleConstants.height;
+
+  var items = {
+    'This week',
+    'This month',
+    'This year'
+  };
+
+  String dropDownInitVal = "This week";
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +49,41 @@ class _EventsScreenState extends State<EventsScreen> {
                 ],
               ),
             ),
+              SizedBox(height: height * 0.05,),
+              Row(
+                children: [
+                  Text('Featured Events', style: StyleConstants.medTextBold,),
+                  Spacer(),
+                  Text('This Week', style: StyleConstants.subTextReg,),
+                  SizedBox(width: width * 0.01,),
+                  DropdownButton(
+                    value: dropDownInitVal,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: items.map((String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropDownInitVal = newValue!;
+                      });},
+                  )
+                ],
+              ),
+              Container(
+                height: height * 0.6,
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: FeaturedEventWidget(),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
