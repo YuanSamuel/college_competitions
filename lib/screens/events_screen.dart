@@ -102,16 +102,18 @@ class _EventsScreenState extends State<EventsScreen> {
                   )
                 ],
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: sortedEvents.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: FeaturedEventWidget(event: sortedEvents[index],),
-                  );
-                },
-              ),
+              SingleChildScrollView(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: sortedEvents.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: FeaturedEventWidget(event: sortedEvents[index],),
+                      );
+                    },
+                  ),
+              )
             ],
           ),
         ),
