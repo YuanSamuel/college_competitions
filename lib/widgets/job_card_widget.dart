@@ -74,7 +74,6 @@ class _JobCardWidgetState extends State<JobCardWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: 0.4,
                   child: Row(
                     children: [
                       Icon(
@@ -86,7 +85,7 @@ class _JobCardWidgetState extends State<JobCardWidget> {
                         width: width * 0.01,
                       ),
                       Container(
-                        width: width * 0.1,
+                        width: width * 0.3,
                         child: Text(
                           location,
                           style: StyleConstants.subTextReg
@@ -99,7 +98,6 @@ class _JobCardWidgetState extends State<JobCardWidget> {
                 ),
                 Spacer(),
                 Container(
-                  width: width * 0.8,
                   child: Row(
                     children: [
                       Icon(
