@@ -58,7 +58,7 @@ class _EventCardWidgetState extends State<EventCardWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              width: width * 0.2,
+              width: width * 0.25,
               height: height * 0.035,
               decoration: BoxDecoration(
                 color: Colors.blue,

@@ -57,7 +57,7 @@ class _JobCardWidgetState extends State<JobCardWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              width: width * 0.2,
+              width: width * 0.25,
               height: height * 0.035,
               decoration: BoxDecoration(
                 color: Colors.blue,

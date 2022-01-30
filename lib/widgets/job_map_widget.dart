@@ -38,6 +38,7 @@ class _JobMapWidgetState extends State<JobMapWidget> {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           GestureDetector(
             onTap: () {
@@ -75,8 +76,8 @@ class _JobMapWidgetState extends State<JobMapWidget> {
                                   children: [
                                     Container(
                                       child: Text(
-                                        StringHelper()
-                                            .getDateString(widget.job.date.toDate()),
+                                        StringHelper().getDateString(
+                                            widget.job.date.toDate()),
                                         style: StyleConstants.subTextReg,
                                       ),
                                     ),
@@ -95,6 +96,8 @@ class _JobMapWidgetState extends State<JobMapWidget> {
                                 Text(
                                   widget.job.name,
                                   style: StyleConstants.titleTextBold,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(
                                   width: width * 0.025,
@@ -145,9 +148,7 @@ class _JobMapWidgetState extends State<JobMapWidget> {
                         child: Image(
                           image: organizer != null
                               ? Image.network(organizer!.profileUrl).image
-                              : Image.network(
-                                      'https://firebasestorage.googleapis.com/v0/b/college-competitions.appspot.com/o/profilePictures%2FRectangle%20443.png?alt=media&token=a67e01cf-d7f2-4163-bd8d-5d9797743403')
-                                  .image,
+                              : Image.network('https://firebasestorage.googleapis.com/v0/b/college-competitions.appspot.com/o/profilePictures%2FRectangle%20443.png?alt=media&token=a67e01cf-d7f2-4163-bd8d-5d9797743403').image,
                           fit: BoxFit.cover,
                         ),
                       ),

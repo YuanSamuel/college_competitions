@@ -66,7 +66,7 @@ class _UpcomingEventWidgetState extends State<UpcomingEventWidget> {
                 // Icon should be replaced with sth similar to FloatingActionButton.extend
                 //Icon(Icons., size: 15.0, color: StyleConstants.lightBlue,),
                 Container(
-                  width: width * 0.2,
+                  width: width * 0.25,
                   height: height * 0.035,
                   decoration: BoxDecoration(
                     color: Colors.blue,
