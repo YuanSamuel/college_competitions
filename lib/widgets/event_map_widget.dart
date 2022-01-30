@@ -1,5 +1,6 @@
 import 'package:college_competitions/models/Event.dart';
 import 'package:college_competitions/models/User.dart';
+import 'package:college_competitions/screens/accept_event_screen.dart';
 import 'package:college_competitions/services/firebase_service.dart';
 import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
@@ -44,7 +45,7 @@ class _EventMapWidgetState extends State<EventMapWidget> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => EventMapWidget(event: widget.event),
+                  builder: (_) => AcceptEventScreen(event: widget.event),
                 ),
               );
             },

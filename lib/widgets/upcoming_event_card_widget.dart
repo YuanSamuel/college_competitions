@@ -69,7 +69,7 @@ class _UpcomingEventWidgetState extends State<UpcomingEventWidget> {
                   width: width * 0.2,
                   height: height * 0.035,
                   decoration: BoxDecoration(
-                    color: StyleConstants.lightBlue,
+                    color: Colors.blue,
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Center(
