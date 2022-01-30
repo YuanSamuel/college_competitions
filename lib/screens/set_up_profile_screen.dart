@@ -96,11 +96,11 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                 ),
               ),
               Container(
-                height: height * 1.8,
+                height: height * 1.7,
                 width: width,
                 color: StyleConstants.darkBlue,
                 child: Container(
-                  height: height * 1.8,
+                  height: height * 1.7,
                   width: width,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -128,6 +128,9 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                                 : const AssetImage('assets/no_profile_icon.png'),
                             radius: 30.0,
                           ),
+                        ),
+                        SizedBox(
+                          height: height * 0.02,
                         ),
                         Text(
                           'Profile Pic',
@@ -166,13 +169,13 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                           ),
                         ),
                         SizedBox(
-                          height: height * 0.02,
+                          height: height * 0.05,
                         ),
                         _chooseCollege == null
                             ? SizedBox.shrink()
                             : Text(
                                 _chooseCollege!.name,
-                                style: StyleConstants.subTextReg,
+                                style: StyleConstants.subTextBold,
                               ),
                         SizedBox(
                           height: height * 0.05,
