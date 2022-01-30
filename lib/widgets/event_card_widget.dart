@@ -1,8 +1,8 @@
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 
-class JobCardWidget extends StatelessWidget {
-   JobCardWidget({Key? key}) : super(key: key);
+class EventCardWidget extends StatelessWidget {
+  EventCardWidget({Key? key}) : super(key: key);
 
 
   double width = StyleConstants.width;
