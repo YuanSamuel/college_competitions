@@ -110,4 +110,16 @@ class FirebaseService {
         await FirebaseFirestore.instance.collection('users').doc(id).get();
     return User.fromSnapshot(snapshot);
   }
+
+  Future<List<User>> getUsersFromCollege(College college) async {
+    QuerySnapshot query = await FirebaseFirestore.instance
+        .collection('users')
+        .where('college', isEqualTo: college.name)
+        .get();
+    List<User> users = [];
+    for (DocumentSnapshot documentSnapshot in query.docs) {
+      users.add(User.fromSnapshot(documentSnapshot));
+    }
+    return users;
+  }
 }

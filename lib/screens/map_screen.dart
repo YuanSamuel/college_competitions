@@ -5,8 +5,10 @@ import 'package:college_competitions/provider/events_provider.dart';
 import 'package:college_competitions/provider/jobs_provider.dart';
 import 'package:college_competitions/provider/map_provider.dart';
 import 'package:college_competitions/utils/style_constants.dart';
+import 'package:college_competitions/widgets/event_map_widget.dart';
 import 'package:college_competitions/widgets/job_map_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +31,7 @@ class _MapScreenState extends State<MapScreen> {
   double height = StyleConstants.height;
 
   Job? _selectedJob;
+  Event? _selectedEvent;
 
   @override
   void dispose() {
@@ -60,8 +63,27 @@ class _MapScreenState extends State<MapScreen> {
             onMapCreated: (controller) => _googleMapController = controller,
             //adding markers to map
             markers: _createMarkers(),
+            onTap: (LatLng position) {
+              _selectedEvent = null;
+              _selectedJob = null;
+              setState(() {});
+            },
           ),
-          _selectedJob != null ? Align(alignment: Alignment.bottomCenter, child: JobMapWidget(job: _selectedJob!,),) : SizedBox.shrink(),
+          _selectedJob != null
+              ? Align(
+                  alignment: Alignment.bottomCenter,
+                  child: JobMapWidget(
+                    job: _selectedJob!,
+                  ),
+                )
+              : _selectedEvent != null
+                  ? Align(
+                      alignment: Alignment.bottomCenter,
+                      child: EventMapWidget(
+                        event: _selectedEvent!,
+                      ),
+                    )
+                  : _getBottomList(),
         ],
       ),
     );
@@ -92,6 +114,7 @@ class _MapScreenState extends State<MapScreen> {
             icon: BitmapDescriptor.defaultMarkerWithHue(
                 BitmapDescriptor.hueGreen),
             onTap: () {
+              _selectedEvent = null;
               _selectedJob = job;
               setState(() {});
             }),
@@ -108,13 +131,43 @@ class _MapScreenState extends State<MapScreen> {
               event.location.latitude,
               event.location.longitude,
             ),
-            infoWindow:
-                InfoWindow(title: event.name, snippet: event.description),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueBlue)),
+            icon:
+                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+            onTap: () {
+              _selectedEvent = event;
+              _selectedJob = null;
+              setState(() {});
+            }),
       );
     }
 
     return markers;
+  }
+
+  Widget _getBottomList() {
+    JobsProvider jobsProvider = Provider.of<JobsProvider>(context);
+    EventsProvider eventsProvider = Provider.of<EventsProvider>(context);
+
+    List<Widget> opportunities = [];
+    for (Job job in jobsProvider.allJobs) {
+      opportunities.add(JobMapWidget(job: job));
+    }
+    for (Event event in eventsProvider.allEvents) {
+      opportunities.add(EventMapWidget(event: event));
+    }
+
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+          itemCount: opportunities.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: opportunities[index],
+            );
+          }),
+    );
   }
 }

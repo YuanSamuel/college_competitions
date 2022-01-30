@@ -3,15 +3,17 @@ import 'dart:math';
 import 'package:college_competitions/animations/FadeAnimationDown.dart';
 import 'package:college_competitions/animations/FadeAnimationLeft.dart';
 import 'package:college_competitions/models/College.dart';
+import 'package:college_competitions/models/User.dart';
 import 'package:college_competitions/provider/colleges_provider.dart';
+import 'package:college_competitions/services/firebase_service.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:college_competitions/widgets/leaderboard_tile_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CollegeProfileScreen extends StatefulWidget {
-  const CollegeProfileScreen({Key? key, required this.college}) : super(key: key);
+  const CollegeProfileScreen({Key? key, required this.college})
+      : super(key: key);
 
   final College college;
 
@@ -24,6 +26,21 @@ class _CollegeProfileScreenState extends State<CollegeProfileScreen> {
   double height = StyleConstants.height;
 
   late CollegesProvider collegesProvider;
+
+  List<User> _students = [];
+
+  @override
+  void initState() {
+    loadStudents();
+    super.initState();
+  }
+
+  Future<void> loadStudents() async {
+    _students = await FirebaseService().getUsersFromCollege(widget.college);
+    setState(() {
+
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +59,16 @@ class _CollegeProfileScreenState extends State<CollegeProfileScreen> {
             SizedBox(
               height: height * 0.02,
             ),
-            Align(alignment: Alignment.centerLeft,child: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back, color: Colors.white,))),
+            Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.arrow_back,
+                      color: Colors.white,
+                    ))),
             SizedBox(
               height: height * 0.02,
             ),
@@ -77,10 +103,20 @@ class _CollegeProfileScreenState extends State<CollegeProfileScreen> {
                 ),
               ],
             ),
-            SizedBox(height: height * 0.05,),
-            Text(widget.college.name, style: StyleConstants.medTextBold.copyWith(color: Colors.white),),
-            SizedBox(height: height * 0.02,),
-            Text("${widget.college.points} pts", style: StyleConstants.medTextBold.copyWith(color: Colors.white),),
+            SizedBox(
+              height: height * 0.05,
+            ),
+            Text(
+              widget.college.name,
+              style: StyleConstants.medTextBold.copyWith(color: Colors.white),
+            ),
+            SizedBox(
+              height: height * 0.02,
+            ),
+            Text(
+              "${widget.college.points} pts",
+              style: StyleConstants.medTextBold.copyWith(color: Colors.white),
+            ),
             SizedBox(
               height: height * 0.04,
             ),
@@ -96,7 +132,7 @@ class _CollegeProfileScreenState extends State<CollegeProfileScreen> {
                 ),
                 child: Padding(
                     padding: EdgeInsets.only(left: 15.0, top: height * 0.02),
-                    child: _buildTopSchools()),
+                    child: _buildTopStudents()),
               ),
             ),
           ],
@@ -105,24 +141,24 @@ class _CollegeProfileScreenState extends State<CollegeProfileScreen> {
     );
   }
 
-
-  Widget _buildTopSchools() {
-    List<College> colleges = [...collegesProvider.colleges!];
-    colleges.sort((College collegeA, College collegeB) {
-      return collegeB.points - collegeA.points;
+  Widget _buildTopStudents() {
+    List<User> students = [..._students];
+    students.sort((User userA, User userB) {
+      return userB.points - userA.points;
     });
 
     List<Widget> tiles = [];
-    for (int i = 0; i < min(10, colleges.length); i++) {
-      tiles.add(Text(colleges[i].name));
+    for (int i = 0; i < min(10, students.length); i++) {
+      tiles.add(Text(students[i].name));
       tiles.add(SizedBox(
         height: height * 0.01,
       ));
     }
 
     return ListView.builder(
-        itemCount: colleges.length,
+        itemCount: students.length,
         itemBuilder: (BuildContext context, int index) {
+          College college = College(students[index].name, students[index].profileUrl, students[index].points);
           return FadeAnimationLeft(
               1 + (index + 1) / 3.0,
               Padding(
@@ -131,7 +167,7 @@ class _CollegeProfileScreenState extends State<CollegeProfileScreen> {
                 ),
                 child: LeaderboardTileWidget(
                   index: index + 1,
-                  college: colleges[index],
+                  college: college,
                 ),
               ));
         });
