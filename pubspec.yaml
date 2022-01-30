@@ -39,6 +39,7 @@ dependencies:
   firebase_core: ^1.12.0
   firebase_storage: ^10.2.6
   flutter_polyline_points: ^0.2.6
+  geolocator: ^8.0.5
   google_maps_flutter: ^2.0.11
   provider: ^6.0.2
   simple_animations: ^4.0.1

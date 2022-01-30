@@ -27,4 +27,24 @@ class FirebaseService {
   Future<void> createJob(Job job) async {
     await FirebaseFirestore.instance.collection('job').add(job.toJson());
   }
+
+  Future<User> getUserFromId(String id) async {
+    DocumentSnapshot snapshot =
+        await FirebaseFirestore.instance.collection('users').doc(id).get();
+    return User.fromSnapshot(snapshot);
+  }
+
+  Future<void> registerForEvent(Event event) async {
+    await event.reference?.update({
+      'registered':
+          FieldValue.arrayUnion([auth.FirebaseAuth.instance.currentUser!.uid]),
+    });
+  }
+
+  Future<void> registerForJob(Job job) async {
+    await job.reference?.update({
+      'registered':
+      FieldValue.arrayUnion([auth.FirebaseAuth.instance.currentUser!.uid]),
+    });
+  }
 }

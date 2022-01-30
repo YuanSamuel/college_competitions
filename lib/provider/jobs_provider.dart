@@ -18,6 +18,7 @@ class JobsProvider extends ChangeNotifier {
       for (DocumentSnapshot snapshot in query.docs) {
         _jobs.add(Job.fromSnapshot(snapshot));
       }
+      notifyListeners();
     });
   }
 }

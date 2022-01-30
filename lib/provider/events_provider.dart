@@ -18,6 +18,7 @@ class EventsProvider extends ChangeNotifier {
           for (DocumentSnapshot snapshot in query.docs) {
             _events.add(Event.fromSnapshot(snapshot));
           }
+          notifyListeners();
     });
   }
 }
