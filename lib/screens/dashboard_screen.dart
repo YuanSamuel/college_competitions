@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:college_competitions/models/College.dart';
 import 'package:college_competitions/models/Event.dart';
 import 'package:college_competitions/models/Job.dart';
 import 'package:college_competitions/provider/colleges_provider.dart';
@@ -36,6 +39,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     jobsProvider = Provider.of<JobsProvider>(context);
     eventsProvider = Provider.of<EventsProvider>(context);
 
+    if (userProvider.user != null) {
     List<int> userLevel = UserService().getLevel(userProvider.user!.points);
 
     return Scaffold(
@@ -117,7 +121,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(userLevel[1].toString() + '/' + userLevel[2].toString(), style: StyleConstants.subTextReg),
+                            Text(
+                                userLevel[1].toString() +
+                                    '/' +
+                                    userLevel[2].toString(),
+                                style: StyleConstants.subTextReg),
                             SizedBox(
                               height: height * 0.01,
                             ),
@@ -131,7 +139,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             SizedBox(
                               height: height * 0.01,
                             ),
-                            Text('Level ' + userLevel[0].toString(), style: StyleConstants.subTextReg),
+                            Text('Level ' + userLevel[0].toString(),
+                                style: StyleConstants.subTextReg),
                           ],
                         ),
                       ],
@@ -173,15 +182,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   'Top 10 Schools',
                   style: StyleConstants.medTextBold,
                 ),
-                SizedBox(
-                  height: height * 0.3,
-                )
+                _buildTopSchools(),
               ],
             ),
           ),
         ),
       ),
-    );
+    );} else {
+      return const Scaffold();
+    }
   }
 
   Widget _buildUserOpportunities() {
@@ -245,6 +254,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Row(
         children: cards,
       ),
+    );
+  }
+
+  Widget _buildTopSchools() {
+    List<College> colleges = [...collegesProvider.colleges!];
+    colleges.sort((College collegeA, College collegeB) {
+      return collegeA.points - collegeB.points;
+    });
+
+    List<Widget> tiles = [];
+    for (int i = 0; i < min(10, colleges.length); i++) {
+      tiles.add(Text(colleges[i].name));
+      tiles.add(SizedBox(
+        height: height * 0.01,
+      ));
+    }
+
+    return Column(
+      children: tiles,
     );
   }
 }
