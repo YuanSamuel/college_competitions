@@ -20,7 +20,7 @@ class _EventsScreenState extends State<EventsScreen> {
 
   var items = {'This week', 'This month', 'This year'};
 
-  String dropDownInitVal = "This week";
+  String dropDownInitVal = "This month";
 
   @override
   Widget build(BuildContext context) {

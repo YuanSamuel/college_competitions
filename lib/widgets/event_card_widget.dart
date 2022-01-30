@@ -1,14 +1,34 @@
 import 'package:college_competitions/models/Event.dart';
+import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 
-class EventCardWidget extends StatelessWidget {
-  EventCardWidget({Key? key, required this.event}) : super(key: key);
+class EventCardWidget extends StatefulWidget {
+  const EventCardWidget({Key? key, required this.event}) : super(key: key);
 
   final Event event;
 
+  @override
+  _EventCardWidgetState createState() => _EventCardWidgetState();
+}
+
+class _EventCardWidgetState extends State<EventCardWidget> {
+  String location = '';
+
   double width = StyleConstants.width;
   double height = StyleConstants.height;
+
+  @override
+  void initState() {
+    setLocation();
+    super.initState();
+  }
+
+  Future<void> setLocation() async {
+    location = await StringHelper().getLocationName(widget.event.location);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +53,14 @@ class EventCardWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            event.name,
+            widget.event.name,
             style: StyleConstants.medTextBold,
           ),
           SizedBox(
             height: height * 0.02,
           ),
           Text(
-            event.description,
+            widget.event.description,
             style: StyleConstants.descTextReg,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
@@ -57,7 +77,7 @@ class EventCardWidget extends StatelessWidget {
                 width: width * 0.01,
               ),
               Text(
-                'Jester East',
+                location,
                 style: StyleConstants.subTextReg
                     .copyWith(color: StyleConstants.lightBlue),
               ),
@@ -71,7 +91,9 @@ class EventCardWidget extends StatelessWidget {
                 width: width * 0.01,
               ),
               Text(
-                event.registered.length.toString() + '/' + event.capacity.toString(),
+                widget.event.registered.length.toString() +
+                    '/' +
+                    widget.event.capacity.toString(),
                 style: StyleConstants.subTextReg
                     .copyWith(color: StyleConstants.lightBlue),
               ),
