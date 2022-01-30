@@ -19,12 +19,21 @@ class CreateJobScreen extends StatefulWidget {
 }
 
 class _CreateJobScreenState extends State<CreateJobScreen> {
-  var categories = {'Social 1', 'Social 2', 'Social 3'};
-
   TextEditingController _titleInputController = TextEditingController();
   TextEditingController _descriptionInputController = TextEditingController();
   TextEditingController _locationInputController = TextEditingController();
   TextEditingController _numPeopleInputController = TextEditingController();
+  static final List<String> interests = [
+    'Gardening',
+    'Construction',
+    'Cooking',
+    'Software',
+    'Electrical',
+    'Physical Exercise',
+    'Environment',
+    'Social',
+    'Cleanup',
+  ];
 
   String dropDownInitVal2 = '1';
 
@@ -160,7 +169,7 @@ class _CreateJobScreenState extends State<CreateJobScreen> {
                         DropdownButton(
                           value: dropDownInitVal,
                           icon: const Icon(Icons.keyboard_arrow_down),
-                          items: categories.map((String items) {
+                          items: interests.map((String items) {
                             return DropdownMenuItem(
                               value: items,
                               child: Text(items),
