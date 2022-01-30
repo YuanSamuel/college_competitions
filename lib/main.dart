@@ -11,48 +11,46 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => UserProvider()),
-        ChangeNotifierProxyProvider<UserProvider, EventsProvider>(
-          create: (_) => EventsProvider(),
-          update: (BuildContext context, UserProvider userProvider,
-              EventsProvider? eventsProvider) {
-            eventsProvider = EventsProvider();
-            if (userProvider.user != null) {
-              eventsProvider.setUpListeners(userProvider.user!);
-            }
-            return eventsProvider;
-          },
+        providers: [
+          ChangeNotifierProvider(create: (_) => UserProvider()),
+          ChangeNotifierProxyProvider<UserProvider, EventsProvider>(
+            create: (_) => EventsProvider(),
+            update: (BuildContext context, UserProvider userProvider,
+                EventsProvider? eventsProvider) {
+              eventsProvider = EventsProvider();
+              if (userProvider.user != null) {
+                eventsProvider.setUpListeners(userProvider.user!);
+              }
+              return eventsProvider;
+            },
+          ),
+          ChangeNotifierProxyProvider<UserProvider, JobsProvider>(
+            create: (_) => JobsProvider(),
+            update: (BuildContext context, UserProvider userProvider,
+                JobsProvider? jobsProvider) {
+              jobsProvider = JobsProvider();
+              if (userProvider.user != null) {
+                jobsProvider.setUpListeners(userProvider.user!);
+              }
+              return jobsProvider;
+            },
+          ),
+        ],
+        child: MaterialApp(
+          title: 'Flutter Demo',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            scaffoldBackgroundColor: StyleConstants.darkWhite,
+            primarySwatch: Colors.blue,
+          ),
+          home: const RootScreen(),
         ),
-        ChangeNotifierProxyProvider<UserProvider, JobsProvider>(
-          create: (_) => JobsProvider(),
-          update: (BuildContext context, UserProvider userProvider,
-              JobsProvider? jobsProvider) {
-            jobsProvider = JobsProvider();
-            if (userProvider.user != null) {
-              jobsProvider.setUpListeners(userProvider.user!);
-            }
-            return jobsProvider;
-          },
-        ),
-      ],
-      child: MaterialApp(
-
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          scaffoldBackgroundColor: StyleConstants.darkWhite,
-          primarySwatch: Colors.blue,
-      ),
-      home: const RootScreen(),
-    )
+    );
   }
 }
-

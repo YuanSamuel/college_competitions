@@ -1,4 +1,5 @@
 import 'package:college_competitions/utils/style_constants.dart';
+import 'package:college_competitions/widgets/job_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -36,8 +37,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     borderRadius: BorderRadius.circular(20.0),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 6,
                         blurRadius: 7,
                         offset: Offset(0, 3), // changes position of shadow
                       ),
@@ -96,6 +97,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
               SizedBox(height: height * 0.05,),
               Text('Your Jobs and Events', style: StyleConstants.medTextBold,),
+              SizedBox(height: height * 0.02,),
+              JobCardWidget(),
             ],
           ),
         ),
