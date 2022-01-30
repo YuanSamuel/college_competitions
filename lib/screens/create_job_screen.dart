@@ -2,14 +2,14 @@ import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
-class CreateEventScreen extends StatefulWidget {
-  const CreateEventScreen({Key? key}) : super(key: key);
+class CreateJobScreen extends StatefulWidget {
+  const CreateJobScreen({Key? key}) : super(key: key);
 
   @override
-  _CreateEventScreenState createState() => _CreateEventScreenState();
+  _CreateJobScreenState createState() => _CreateJobScreenState();
 }
 
-class _CreateEventScreenState extends State<CreateEventScreen> {
+class _CreateJobScreenState extends State<CreateJobScreen> {
   //TODO : Has to be fixed with different categories
   var categories = {'Social 1', 'Social 2', 'Social 3'};
 
@@ -55,7 +55,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   decoration: BoxDecoration(
                     color: StyleConstants.darkBlue,
                     borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(40.0)),
+                    BorderRadius.only(bottomRight: Radius.circular(40.0)),
                   ),
                   child: Padding(
                     padding: EdgeInsets.all(15.0),
@@ -95,7 +95,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius:
-                        BorderRadius.only(topLeft: Radius.circular(40.0)),
+                    BorderRadius.only(topLeft: Radius.circular(40.0)),
                   ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: width * 0.05),
@@ -107,36 +107,36 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                         TextField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: 'Enter event title',
+                            hintText: 'Enter job title',
                           ),
                         ),
                         SizedBox(height: height * 0.04,),
                         TextField(
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            hintText: 'Enter event description',
+                            hintText: 'Enter job description',
                           ),
                         ),
                         SizedBox(height: height * 0.04,),
 
                         TextButton(
-                            onPressed: () {
-                              DatePicker.showDatePicker(context,
-                                  showTitleActions: true,
-                                  minTime: DateTime(2022, 1, 1),
-                                  maxTime: DateTime(2030, 12, 31),
-                                  onChanged: (date) {
-                                print('change $date');
-                              }, onConfirm: (date) {
-                                print('confirm $date');
-                              },
-                                  currentTime: DateTime.now(),
-                                  locale: LocaleType.en);
-                            },
-                            child: Text(
-                              'Pick date & time',
-                              style: TextStyle(color: Colors.blue),
-                            ),),
+                          onPressed: () {
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime(2022, 1, 1),
+                                maxTime: DateTime(2030, 12, 31),
+                                onChanged: (date) {
+                                  print('change $date');
+                                }, onConfirm: (date) {
+                                  print('confirm $date');
+                                },
+                                currentTime: DateTime.now(),
+                                locale: LocaleType.en);
+                          },
+                          child: Text(
+                            'Pick date & time',
+                            style: TextStyle(color: Colors.blue),
+                          ),),
                         SizedBox(height: height * 0.02,),
                         DropdownButton(
                           value: dropDownInitVal,
@@ -162,13 +162,22 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           ),
                         ),
                         SizedBox(height: height * 0.04,),
-                        TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Number of people required',
-                          ),
+                        Text('Number Required', style: StyleConstants.medTextReg,),
+                        DropdownButton(
+                          value: dropDownInitVal2,
+                          icon: const Icon(Icons.keyboard_arrow_down),
+                          items: numPeopleRequired.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(items),
+                            );
+                          }).toList(),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropDownInitVal2 = newValue!;
+                            });
+                          },
                         ),
-                        SizedBox(height: height * 0.03,),
                         GestureDetector(
                           onTap: ()  {
                             Navigator.pop(context);
