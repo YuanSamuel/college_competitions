@@ -268,7 +268,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _buildTopSchools() {
     List<College> colleges = [...collegesProvider.colleges!];
     colleges.sort((College collegeA, College collegeB) {
-      return collegeA.points - collegeB.points;
+      return collegeB.points - collegeA.points;
     });
 
     List<Widget> tiles = [];

@@ -1,8 +1,13 @@
+import 'dart:math';
+
 import 'package:college_competitions/animations/FadeAnimationDown.dart';
 import 'package:college_competitions/animations/FadeAnimationLeft.dart';
+import 'package:college_competitions/models/College.dart';
+import 'package:college_competitions/provider/colleges_provider.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:college_competitions/widgets/leaderboard_tile_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   const LeaderboardScreen({Key? key}) : super(key: key);
@@ -15,8 +20,13 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
   double width = StyleConstants.width;
   double height = StyleConstants.height;
 
+  late CollegesProvider collegesProvider;
+
   @override
   Widget build(BuildContext context) {
+    collegesProvider = Provider.of<CollegesProvider>(context);
+
+
     return Scaffold(
       body: Container(
         color: StyleConstants.darkBlue,
@@ -217,21 +227,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15.0),
-                  child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) {
-                        return FadeAnimationLeft(
-                            1 + (index + 1) / 3.0,
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 10,
-                                right: 10,
-                              ),
-                              child: LeaderboardTileWidget(
-                                index: index + 1,
-                              ),
-                            ));
-                      }),
+                  child: _buildTopSchools()
                   // child: SingleChildScrollView(
                   //   child: Column(
                   //     children: [
@@ -611,7 +607,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                   //       ),
                   //     ],
                   //   ),
-                  // )
+
                 ),
               ),
             ),
@@ -619,5 +615,39 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
         ),
       ),
     );
+  }
+  Widget _buildTopSchools() {
+    List<College> colleges = [...collegesProvider.colleges!];
+    colleges.sort((College collegeA, College collegeB) {
+      return collegeB.points - collegeA.points;
+    });
+
+    List<Widget> tiles = [];
+    for (int i = 0; i < min(10, colleges.length); i++) {
+      tiles.add(Text(colleges[i].name));
+      tiles.add(SizedBox(
+        height: height * 0.01,
+      ));
+    }
+
+    return ListView.builder(
+        itemCount: colleges.length,
+        itemBuilder: (BuildContext context, int index) {
+          return FadeAnimationLeft(
+              1 + (index + 1) / 3.0,
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                ),
+                child: LeaderboardTileWidget(
+                  index: index + 1,
+                  college: colleges[index],
+                ),
+              ));
+        });
+    // return Column(
+    //   children: tiles,
+    // );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:college_competitions/widgets/featured_event_widget.dart';
 import 'package:college_competitions/widgets/upcoming_event_card_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class EventsScreen extends StatefulWidget {
@@ -35,6 +36,7 @@ class _EventsScreenState extends State<EventsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: height * 0.05,),
+              ElevatedButton(onPressed: (){FirebaseAuth.instance.signOut();}, child: Text('log out')),
               Text('Upcoming Events', style: StyleConstants.medTextBold,),
               SizedBox(height: height * 0.02,),
             Container(
