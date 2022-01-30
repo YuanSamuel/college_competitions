@@ -11,22 +11,18 @@ class CreateJobScreen extends StatefulWidget {
 }
 
 class _CreateJobScreenState extends State<CreateJobScreen> {
-  //TODO : Has to be fixed with different categories
-  var categories = {'Social 1', 'Social 2', 'Social 3'};
 
-  var numPeopleRequired = {
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '10+'
-  };
+  static final List<String> interests = [
+    'Gardening',
+    'Construction',
+    'Cooking',
+    'Software',
+    'Electrical',
+    'Physical Exercise',
+    'Environment',
+    'Social',
+    'Cleanup',
+  ];
 
   String dropDownInitVal2 = '1';
 
@@ -142,7 +138,7 @@ class _CreateJobScreenState extends State<CreateJobScreen> {
                         DropdownButton(
                           value: dropDownInitVal,
                           icon: const Icon(Icons.keyboard_arrow_down),
-                          items: categories.map((String items) {
+                          items: interests.map((String items) {
                             return DropdownMenuItem(
                               value: items,
                               child: Text(items),
