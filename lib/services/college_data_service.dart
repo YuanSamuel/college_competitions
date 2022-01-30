@@ -36,13 +36,4 @@ class CollegeDataService {
 
     return college;
   }
-
-  Future<String> uploadProfilePicture(File file) async {
-    FirebaseStorage storage = FirebaseStorage.instance;
-    await storage.ref('profilePictures/${file.hashCode}').putFile(file);
-    String downloadURL = await storage
-        .ref('profilePictures/${file.hashCode}')
-        .getDownloadURL();
-    return downloadURL;
-  }
 }
