@@ -32,7 +32,7 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height * 0.22,
+      height: height * 0.24,
       width: width * 0.80,
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
@@ -54,7 +54,17 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
         children: [
           Row(
             children: [
-              //Container for blue circle
+              Container(
+                  height: height * 0.03,
+                  width: width * 0.2,
+                decoration: BoxDecoration(
+                  color: StyleConstants.lightBlue,
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+                child: Center(
+                  child: Text('Social', style: StyleConstants.subTextReg.copyWith(color: Colors.white),),
+                ),
+              ),
               Spacer(),
               Icon(
                 Icons.access_time_rounded,
@@ -71,6 +81,7 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
               )
             ],
           ),
+          SizedBox(height: height * 0.02,),
           Text(
             widget.event.name,
             style: StyleConstants.medTextBold,
