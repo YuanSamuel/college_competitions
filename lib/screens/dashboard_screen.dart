@@ -1,6 +1,7 @@
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:college_competitions/widgets/event_card_widget.dart';
 import 'package:college_competitions/widgets/job_card_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -138,7 +139,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 SizedBox(height: height * 0.05,),
                 Text('Top 10 Schools', style: StyleConstants.medTextBold,),
-                SizedBox(height: height * 0.3,)
+                SizedBox(height: height * 0.3,),
+                ElevatedButton(onPressed: (){FirebaseAuth.instance.signOut();}, child: Text('log out')),
               ],
             ),
           ),
