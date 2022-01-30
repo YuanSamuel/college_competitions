@@ -1,5 +1,6 @@
 import 'package:college_competitions/models/ChooseCollege.dart';
 import 'package:dio/dio.dart';
+import 'package:geocoding/geocoding.dart';
 
 class CollegeDataService {
   Future<List<ChooseCollege>> getCollegeFromName(String name) async {
@@ -36,5 +37,10 @@ class CollegeDataService {
     }
 
     return college;
+  }
+
+  Future<Location> getLocationFromAddress(String address) async {
+    List<Location> location = await locationFromAddress(address);
+    return location[0];
   }
 }

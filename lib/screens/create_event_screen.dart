@@ -2,11 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:college_competitions/models/Event.dart';
 import 'package:college_competitions/provider/current_location_provider.dart';
 import 'package:college_competitions/provider/user_provider.dart';
+import 'package:college_competitions/services/college_data_service.dart';
 import 'package:college_competitions/services/firebase_service.dart';
 import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:provider/provider.dart';
 
 class CreateEventScreen extends StatefulWidget {
@@ -130,7 +132,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
                         TextButton(
                           onPressed: () {
-                            DatePicker.showDatePicker(context,
+                            DatePicker.showDateTimePicker(context,
                                 showTitleActions: true,
                                 minTime: DateTime(2022, 1, 1),
                                 maxTime: DateTime(2030, 12, 31),
@@ -148,7 +150,9 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                         ),
                         _eventDate != null
                             ? Text(
-                                StringHelper().getDateString(_eventDate!),
+                                StringHelper().getDateString(_eventDate!) +
+                                    " " +
+                                    StringHelper().getTimeString(_eventDate!),
                               )
                             : const SizedBox.shrink(),
                         SizedBox(
@@ -194,7 +198,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           height: height * 0.03,
                         ),
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
+                            Location location = await CollegeDataService()
+                                .getLocationFromAddress(
+                                    _locationInputController.text.trim());
+
                             Event event = Event(
                               _titleInputController.text.trim(),
                               userProvider.user!.college,
@@ -202,9 +210,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                               userProvider.user!.reference!.id,
                               int.parse(_numPeopleInputController.text.trim()),
                               100,
-                              GeoPoint(
-                                  currentLocationProvider.position!.latitude,
-                                  currentLocationProvider.position!.longitude),
+                              GeoPoint(location.latitude, location.longitude),
                               Timestamp.fromDate(_eventDate!),
                               [],
                               [],
