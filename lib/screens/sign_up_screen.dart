@@ -90,28 +90,50 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                         TextField(
                           controller: _nameInputController,
-                          decoration: InputDecoration(hintText: 'Full Name'),
+                          decoration: InputDecoration(
+                            hintText: 'Full Name',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
                         ),
                         SizedBox(
                           height: height * 0.04,
                         ),
                         TextField(
                           controller: _phoneNumberInputController,
-                          decoration: InputDecoration(hintText: 'Phone Number'),
+                          decoration: InputDecoration(
+                            hintText: 'Phone Number',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                          keyboardType: TextInputType.phone,
                         ),
                         SizedBox(
                           height: height * 0.04,
                         ),
                         TextField(
                           controller: _emailInputController,
-                          decoration: InputDecoration(hintText: 'Email'),
+                          decoration: InputDecoration(
+                            hintText: 'Email',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
                         ),
                         SizedBox(
                           height: height * 0.04,
                         ),
                         TextField(
                           controller: _passwordInputController,
-                          decoration: InputDecoration(hintText: 'Password'),
+                          decoration: InputDecoration(
+                            hintText: 'Password',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
                           obscureText: true,
                           enableSuggestions: false,
                         ),
@@ -140,11 +162,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               MaterialPageRoute<void>(
                                   builder: (_) => SetUpProfileScreen(
                                       name: _nameInputController.text.trim(),
-                                      phoneNumber:
-                                          _phoneNumberInputController.text.trim(),
+                                      phoneNumber: _phoneNumberInputController
+                                          .text
+                                          .trim(),
                                       email: _emailInputController.text.trim(),
-                                      password:
-                                          _passwordInputController.text.trim())),
+                                      password: _passwordInputController.text
+                                          .trim())),
                             );
                           },
                           child: Container(

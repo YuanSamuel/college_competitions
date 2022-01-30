@@ -17,10 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     double height = StyleConstants.height;
     double width = StyleConstants.width;
-
 
     return Scaffold(
       body: Container(
@@ -35,15 +33,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: height * 0.5,
                   width: width,
                   decoration: BoxDecoration(
-                    color: StyleConstants.darkBlue,
-                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(40.0))
-                  ),
+                      color: StyleConstants.darkBlue,
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(40.0))),
                   child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Welcome to ', textAlign: TextAlign.center, style: StyleConstants.titleTextReg.copyWith(color: Colors.white),),
-                        Text('Campus Connect', textAlign: TextAlign.center, style: StyleConstants.titleTextBold.copyWith(color: Colors.white),)
+                        Text(
+                          'Welcome to ',
+                          textAlign: TextAlign.center,
+                          style: StyleConstants.titleTextReg
+                              .copyWith(color: Colors.white),
+                        ),
+                        Text(
+                          'Campus Connect',
+                          textAlign: TextAlign.center,
+                          style: StyleConstants.titleTextBold
+                              .copyWith(color: Colors.white),
+                        )
                       ],
                     ),
                   ),
@@ -55,26 +63,39 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: height * 0.5,
                   width: width,
                   decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0), )
-                  ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40.0),
+                      )),
                   child: Center(
                     child: Padding(
-                      padding:  EdgeInsets.symmetric(horizontal: width * 0.05),
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           TextField(
                             controller: _emailInputController,
                             decoration: InputDecoration(
-                                hintText: 'Email'
+                              hintText: 'Email',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
                             ),
+                            keyboardType: TextInputType.emailAddress,
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
                           ),
                           TextField(
                             controller: _passwordInputController,
                             decoration: InputDecoration(
-                                hintText: 'Password'
+                              hintText: 'Password',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
                             ),
+                            obscureText: true,
+                            enableSuggestions: false,
                           ),
                           // ElevatedButton(
                           //   onPressed: () {
@@ -83,10 +104,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           //   },
                           //   child: Text("Log in"),
                           // ),
-                          SizedBox(height: height * 0.04,),
+                          SizedBox(
+                            height: height * 0.04,
+                          ),
                           GestureDetector(
                             onTap: () {
-                              FirebaseService().signIn(_emailInputController.text.trim(),
+                              FirebaseService().signIn(
+                                  _emailInputController.text.trim(),
                                   _passwordInputController.text.trim());
                             },
                             child: Container(
@@ -97,11 +121,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
                               child: Center(
-                                child: Text('LOGIN', style: StyleConstants.medTextBold.copyWith(color: Colors.white),),
+                                child: Text(
+                                  'LOGIN',
+                                  style: StyleConstants.medTextBold
+                                      .copyWith(color: Colors.white),
+                                ),
                               ),
                             ),
                           ),
-                          SizedBox(height: height * 0.04,),
+                          SizedBox(
+                            height: height * 0.04,
+                          ),
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -114,8 +144,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Don't have an account yet? ", style: StyleConstants.subTextReg,),
-                                Text('SIGN UP', style: StyleConstants.subTextBold.copyWith(color: StyleConstants.darkBlue),)
+                                Text(
+                                  "Don't have an account yet? ",
+                                  style: StyleConstants.subTextReg,
+                                ),
+                                Text(
+                                  'SIGN UP',
+                                  style: StyleConstants.subTextBold
+                                      .copyWith(color: StyleConstants.darkBlue),
+                                )
                               ],
                             ),
                           ),
