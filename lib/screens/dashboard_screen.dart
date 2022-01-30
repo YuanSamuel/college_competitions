@@ -1,9 +1,21 @@
-import 'package:college_competitions/screens/create_event_screen.dart';
+import 'dart:math';
+
+import 'package:college_competitions/models/College.dart';
+import 'package:college_competitions/models/Event.dart';
+import 'package:college_competitions/models/Job.dart';
+import 'package:college_competitions/provider/colleges_provider.dart';
+import 'package:college_competitions/provider/events_provider.dart';
+import 'package:college_competitions/provider/jobs_provider.dart';
+import 'package:college_competitions/provider/user_provider.dart';
+import 'package:college_competitions/services/user_service.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:college_competitions/widgets/event_card_widget.dart';
 import 'package:college_competitions/widgets/job_card_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:college_competitions/widgets/no_opportunities_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'create_event_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -16,10 +28,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
   double width = StyleConstants.width;
   double height = StyleConstants.height;
 
+  late UserProvider userProvider;
+  late CollegesProvider collegesProvider;
+  late JobsProvider jobsProvider;
+  late EventsProvider eventsProvider;
 
   @override
   Widget build(BuildContext context) {
-  return Scaffold(
+    userProvider = Provider.of<UserProvider>(context);
+    collegesProvider = Provider.of<CollegesProvider>(context);
+    jobsProvider = Provider.of<JobsProvider>(context);
+    eventsProvider = Provider.of<EventsProvider>(context);
+
+    if (userProvider.user != null) {
+    List<int> userLevel = UserService().getLevel(userProvider.user!.points);
+
+    return Scaffold(
       floatingActionButton: FloatingActionButton(
         backgroundColor: StyleConstants.darkBlue,
         onPressed: (){
@@ -34,7 +58,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: height * 0.1,),
+                SizedBox(
+                  height: height * 0.1,
+                ),
                 Align(
                   alignment: Alignment.center,
                   child: Container(
@@ -63,25 +89,39 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Stack(
                               children: [
                                 CircleAvatar(
-                                  foregroundImage: AssetImage('assets/profpic1.jpg'),
+                                  foregroundImage:
+                                      userProvider.user!.profileUrl.isNotEmpty
+                                          ? Image.network(
+                                                  userProvider.user!.profileUrl)
+                                              .image
+                                          : Image.asset('assets/profpic1.jpg')
+                                              .image,
                                   radius: width * 0.15,
                                 ),
                                 Positioned(
                                   bottom: 0.0,
-                                    right: 0.0,
-                                    child: CircleAvatar(
-                                      backgroundImage: AssetImage('assets/utlogo.png'),
-                                      radius: width * 0.05,
+                                  right: 0.0,
+                                  child: CircleAvatar(
+                                    foregroundImage: Image.network(UserService()
+                                            .getUserCollege(userProvider.user!,
+                                                collegesProvider.colleges!)
+                                            .logoUrl)
+                                        .image,
+                                    radius: width * 0.05,
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(width: width * 0.04,),
+                            SizedBox(
+                              width: width * 0.04,
+                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Vincent Yuan', style: StyleConstants.titleTextReg),
-                                Text('UT Austin', style: StyleConstants.descTextReg),
+                                Text(userProvider.user!.name,
+                                    style: StyleConstants.titleTextReg),
+                                Text(userProvider.user!.college,
+                                    style: StyleConstants.descTextReg),
                               ],
                             ),
                           ],
@@ -89,71 +129,158 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('500/1200', style: StyleConstants.subTextReg),
-                            SizedBox(height: height * 0.01,),
-                            LinearProgressIndicator(
-                              value: 0.7,
-                              valueColor: new AlwaysStoppedAnimation(StyleConstants.lightBlack),
-                              backgroundColor: StyleConstants.lightBlack.withOpacity(0.5),
+                            Text(
+                                userLevel[1].toString() +
+                                    '/' +
+                                    userLevel[2].toString(),
+                                style: StyleConstants.subTextReg),
+                            SizedBox(
+                              height: height * 0.01,
                             ),
-                            SizedBox(height: height * 0.01,),
-                            Text('Level 10', style: StyleConstants.subTextReg),
+                            LinearProgressIndicator(
+                              value: userLevel[1] / userLevel[2],
+                              valueColor: AlwaysStoppedAnimation(
+                                  StyleConstants.lightBlack),
+                              backgroundColor:
+                                  StyleConstants.lightBlack.withOpacity(0.5),
+                            ),
+                            SizedBox(
+                              height: height * 0.01,
+                            ),
+                            Text('Level ' + userLevel[0].toString(),
+                                style: StyleConstants.subTextReg),
                           ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                SizedBox(height: height * 0.05,),
-                Text('Your Jobs and Events', style: StyleConstants.medTextBold,),
-                SizedBox(height: height * 0.02,),
+                SizedBox(
+                  height: height * 0.05,
+                ),
+                Text(
+                  'Your Jobs and Events',
+                  style: StyleConstants.medTextBold,
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
                 Container(
                   height: height * 0.25,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: JobCardWidget(),
-                      ),
-                      SizedBox(width: width * 0.05,),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: JobCardWidget(),
-                      ),
-                    ],
-                  ),
+                  child: _buildUserOpportunities(),
                 ),
-
-                SizedBox(height: height * 0.05,),
-                Text('Featured Jobs and Events', style: StyleConstants.medTextBold,),
-                SizedBox(height: height * 0.02,),
+                SizedBox(
+                  height: height * 0.05,
+                ),
+                Text(
+                  'Featured Jobs and Events',
+                  style: StyleConstants.medTextBold,
+                ),
+                SizedBox(
+                  height: height * 0.02,
+                ),
                 Container(
                   height: height * 0.25,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: EventCardWidget(),
-                      ),
-                      SizedBox(width: width * 0.05,),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: EventCardWidget(),
-                      ),
-                    ],
-                  ),
+                  child: _buildAllOpportunities(),
                 ),
-                SizedBox(height: height * 0.05,),
-                Text('Top 10 Schools', style: StyleConstants.medTextBold,),
-                SizedBox(height: height * 0.3,),
-                ElevatedButton(onPressed: (){FirebaseAuth.instance.signOut();}, child: Text('log out')),
+                SizedBox(
+                  height: height * 0.05,
+                ),
+                Text(
+                  'Top 10 Schools',
+                  style: StyleConstants.medTextBold,
+                ),
+                _buildTopSchools(),
               ],
             ),
           ),
         ),
       ),
+    );} else {
+      return const Scaffold();
+    }
+  }
+
+  Widget _buildUserOpportunities() {
+    List<Widget> cards = [];
+
+    for (Job job in jobsProvider.userJobs) {
+      cards.add(JobCardWidget(job: job));
+      cards.add(
+        SizedBox(
+          width: width * 0.05,
+        ),
+      );
+    }
+    for (Event event in eventsProvider.userEvents) {
+      cards.add(EventCardWidget(event: event));
+      cards.add(
+        SizedBox(
+          width: width * 0.05,
+        ),
+      );
+    }
+
+    if (cards.isEmpty) {
+      cards.add(const NoOpportunitiesCard());
+    }
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: cards,
+      ),
+    );
+  }
+
+  Widget _buildAllOpportunities() {
+    List<Widget> cards = [];
+
+    for (Job job in jobsProvider.allJobs) {
+      cards.add(JobCardWidget(job: job));
+      cards.add(
+        SizedBox(
+          width: width * 0.05,
+        ),
+      );
+    }
+    for (Event event in eventsProvider.allEvents) {
+      cards.add(EventCardWidget(event: event));
+      cards.add(
+        SizedBox(
+          width: width * 0.05,
+        ),
+      );
+    }
+
+    if (cards.isEmpty) {
+      cards.add(const NoOpportunitiesCard());
+    }
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: cards,
+      ),
+    );
+  }
+
+  Widget _buildTopSchools() {
+    List<College> colleges = [...collegesProvider.colleges!];
+    colleges.sort((College collegeA, College collegeB) {
+      return collegeA.points - collegeB.points;
+    });
+
+    List<Widget> tiles = [];
+    for (int i = 0; i < min(10, colleges.length); i++) {
+      tiles.add(Text(colleges[i].name));
+      tiles.add(SizedBox(
+        height: height * 0.01,
+      ));
+    }
+
+    return Column(
+      children: tiles,
     );
   }
 }

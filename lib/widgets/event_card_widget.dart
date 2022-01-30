@@ -1,9 +1,11 @@
+import 'package:college_competitions/models/Event.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 
 class EventCardWidget extends StatelessWidget {
-  EventCardWidget({Key? key}) : super(key: key);
+  EventCardWidget({Key? key, required this.event}) : super(key: key);
 
+  final Event event;
 
   double width = StyleConstants.width;
   double height = StyleConstants.height;
@@ -30,9 +32,15 @@ class EventCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('Clean Up Campus', style: StyleConstants.medTextBold,),
-          SizedBox(height: height * 0.02,),
-          Text("Join us in helping keep our campus clean! Spots limited so sign up soon...",
+          Text(
+            event.name,
+            style: StyleConstants.medTextBold,
+          ),
+          SizedBox(
+            height: height * 0.02,
+          ),
+          Text(
+            event.description,
             style: StyleConstants.descTextReg,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
@@ -40,18 +48,37 @@ class EventCardWidget extends StatelessWidget {
           Spacer(),
           Row(
             children: [
-              Icon(Icons.location_on, size: 15.0, color: StyleConstants.lightBlue,),
-              SizedBox(width: width * 0.01,),
-              Text('Jester East', style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),),
+              Icon(
+                Icons.location_on,
+                size: 15.0,
+                color: StyleConstants.lightBlue,
+              ),
+              SizedBox(
+                width: width * 0.01,
+              ),
+              Text(
+                'Jester East',
+                style: StyleConstants.subTextReg
+                    .copyWith(color: StyleConstants.lightBlue),
+              ),
               Spacer(),
-              Icon(Icons.people, size: 15.0, color: StyleConstants.lightBlue,),
-              SizedBox(width: width * 0.01,),
-              Text('6/12', style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),),
+              Icon(
+                Icons.people,
+                size: 15.0,
+                color: StyleConstants.lightBlue,
+              ),
+              SizedBox(
+                width: width * 0.01,
+              ),
+              Text(
+                event.registered.length.toString() + '/' + event.capacity.toString(),
+                style: StyleConstants.subTextReg
+                    .copyWith(color: StyleConstants.lightBlue),
+              ),
             ],
           )
         ],
       ),
-
     );
   }
 }

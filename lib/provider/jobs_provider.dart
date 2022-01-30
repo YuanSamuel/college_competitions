@@ -4,9 +4,11 @@ import 'package:college_competitions/models/User.dart';
 import 'package:flutter/foundation.dart';
 
 class JobsProvider extends ChangeNotifier {
-  List<Job> _jobs = [];
+  List<Job> _allJobs = [];
+  List<Job> _userJobs = [];
 
-  List<Job> get jobs => _jobs;
+  List<Job> get allJobs => _allJobs;
+  List<Job> get userJobs => _userJobs;
 
   Future<void> setUpListeners(User user) async {
     FirebaseFirestore.instance
@@ -14,9 +16,20 @@ class JobsProvider extends ChangeNotifier {
         .where('college', isEqualTo: user.college)
         .snapshots()
         .listen((QuerySnapshot query) {
-      _jobs = [];
+      _userJobs = [];
       for (DocumentSnapshot snapshot in query.docs) {
-        _jobs.add(Job.fromSnapshot(snapshot));
+        _userJobs.add(Job.fromSnapshot(snapshot));
+      }
+      notifyListeners();
+    });
+
+    FirebaseFirestore.instance
+        .collection('jobs')
+        .snapshots()
+        .listen((QuerySnapshot query) {
+      _allJobs = [];
+      for (DocumentSnapshot snapshot in query.docs) {
+        _allJobs.add(Job.fromSnapshot(snapshot));
       }
       notifyListeners();
     });

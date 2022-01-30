@@ -14,4 +14,8 @@ class StringHelper {
 
     return name;
   }
+
+  String getDateString(DateTime time) {
+    return time.month.toString() + '/' + time.day.toString() + '/' + time.year.toString();
+  }
 }

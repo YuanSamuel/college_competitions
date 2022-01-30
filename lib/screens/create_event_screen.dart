@@ -1,6 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_competitions/models/Event.dart';
+import 'package:college_competitions/provider/current_location_provider.dart';
+import 'package:college_competitions/provider/user_provider.dart';
+import 'package:college_competitions/services/firebase_service.dart';
+import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:provider/provider.dart';
 
 class CreateEventScreen extends StatefulWidget {
   const CreateEventScreen({Key? key}) : super(key: key);
@@ -13,19 +20,10 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
   //TODO : Has to be fixed with different categories
   var categories = {'Social 1', 'Social 2', 'Social 3'};
 
-  var numPeopleRequired = {
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '10+'
-  };
+  TextEditingController _titleInputController = TextEditingController();
+  TextEditingController _descriptionInputController = TextEditingController();
+  TextEditingController _locationInputController = TextEditingController();
+  TextEditingController _numPeopleInputController = TextEditingController();
 
   String dropDownInitVal2 = '1';
 
@@ -33,9 +31,14 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
   double width = StyleConstants.width;
   double height = StyleConstants.height;
+  DateTime? _eventDate;
 
   @override
   Widget build(BuildContext context) {
+    UserProvider userProvider = Provider.of<UserProvider>(context);
+    CurrentLocationProvider currentLocationProvider =
+        Provider.of<CurrentLocationProvider>(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -105,39 +108,52 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           height: height * 0.05,
                         ),
                         TextField(
+                          controller: _titleInputController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter event title',
                           ),
                         ),
-                        SizedBox(height: height * 0.04,),
+                        SizedBox(
+                          height: height * 0.04,
+                        ),
                         TextField(
+                          controller: _descriptionInputController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter event description',
                           ),
                         ),
-                        SizedBox(height: height * 0.04,),
+                        SizedBox(
+                          height: height * 0.04,
+                        ),
 
                         TextButton(
-                            onPressed: () {
-                              DatePicker.showDatePicker(context,
-                                  showTitleActions: true,
-                                  minTime: DateTime(2022, 1, 1),
-                                  maxTime: DateTime(2030, 12, 31),
-                                  onChanged: (date) {
-                                print('change $date');
-                              }, onConfirm: (date) {
-                                print('confirm $date');
-                              },
-                                  currentTime: DateTime.now(),
-                                  locale: LocaleType.en);
+                          onPressed: () {
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime(2022, 1, 1),
+                                maxTime: DateTime(2030, 12, 31),
+                                onConfirm: (date) {
+                              _eventDate = date;
+                              setState(() {});
                             },
-                            child: Text(
-                              'Pick date & time',
-                              style: TextStyle(color: Colors.blue),
-                            ),),
-                        SizedBox(height: height * 0.02,),
+                                currentTime: DateTime.now(),
+                                locale: LocaleType.en);
+                          },
+                          child: const Text(
+                            'Pick date & time',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                        _eventDate != null
+                            ? Text(
+                                StringHelper().getDateString(_eventDate!),
+                              )
+                            : const SizedBox.shrink(),
+                        SizedBox(
+                          height: height * 0.02,
+                        ),
                         DropdownButton(
                           value: dropDownInitVal,
                           icon: const Icon(Icons.keyboard_arrow_down),
@@ -153,24 +169,48 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                             });
                           },
                         ),
-                        SizedBox(height: height * 0.04,),
+                        SizedBox(
+                          height: height * 0.04,
+                        ),
 
                         TextField(
+                          controller: _locationInputController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Enter location',
                           ),
                         ),
-                        SizedBox(height: height * 0.04,),
+                        SizedBox(
+                          height: height * 0.04,
+                        ),
                         TextField(
+                          controller: _numPeopleInputController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: 'Number of people required',
                           ),
                         ),
-                        SizedBox(height: height * 0.03,),
+                        SizedBox(
+                          height: height * 0.03,
+                        ),
                         GestureDetector(
-                          onTap: ()  {
+                          onTap: () {
+                            Event event = Event(
+                              _titleInputController.text.trim(),
+                              userProvider.user!.college,
+                              _descriptionInputController.text.trim(),
+                              userProvider.user!.reference!.id,
+                              int.parse(_numPeopleInputController.text.trim()),
+                              100,
+                              GeoPoint(
+                                  currentLocationProvider.position!.latitude,
+                                  currentLocationProvider.position!.longitude),
+                              Timestamp.fromDate(_eventDate!),
+                              [],
+                              [],
+                            );
+
+                            FirebaseService().createEvent(event);
                             Navigator.pop(context);
                           },
                           child: Container(

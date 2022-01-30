@@ -5,6 +5,7 @@ import 'package:college_competitions/screens/events_screen.dart';
 import 'package:college_competitions/screens/job_map_screen.dart';
 import 'package:college_competitions/screens/leaderboard_screen.dart';
 import 'package:college_competitions/screens/login_screen.dart';
+import 'package:college_competitions/screens/map_screen.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,7 +23,7 @@ class _RootScreenState extends State<RootScreen> {
   int _selectedTab = 0;
   static const _pageOptions = [
     DashboardScreen(),
-    JobMapScreen(),
+    MapScreen(),
     EventsScreen(),
     LeaderboardScreen(),
   ];
