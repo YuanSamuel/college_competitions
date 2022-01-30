@@ -1,21 +1,20 @@
-import 'package:college_competitions/models/Job.dart';
+import 'package:college_competitions/models/Event.dart';
 import 'package:college_competitions/models/User.dart';
-import 'package:college_competitions/screens/accept_job_screen.dart';
 import 'package:college_competitions/services/firebase_service.dart';
 import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 
-class JobMapWidget extends StatefulWidget {
-  const JobMapWidget({Key? key, required this.job}) : super(key: key);
+class EventMapWidget extends StatefulWidget {
+  const EventMapWidget({Key? key, required this.event}) : super(key: key);
 
-  final Job job;
+  final Event event;
 
   @override
-  _JobMapWidgetState createState() => _JobMapWidgetState();
+  _EventMapWidgetState createState() => _EventMapWidgetState();
 }
 
-class _JobMapWidgetState extends State<JobMapWidget> {
+class _EventMapWidgetState extends State<EventMapWidget> {
   String location = '';
 
   double width = StyleConstants.width;
@@ -29,8 +28,8 @@ class _JobMapWidgetState extends State<JobMapWidget> {
   }
 
   Future<void> getData() async {
-    organizer = await FirebaseService().getOrganizer(widget.job.organizerId);
-    location = await StringHelper().getLocationName(widget.job.location);
+    organizer = await FirebaseService().getOrganizer(widget.event.organizerId);
+    location = await StringHelper().getLocationName(widget.event.location);
     setState(() {});
   }
 
@@ -44,7 +43,7 @@ class _JobMapWidgetState extends State<JobMapWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => AcceptJobScreen(job: widget.job),
+                builder: (_) => EventMapWidget(event: widget.event),
               ),
             );
           },
@@ -75,14 +74,14 @@ class _JobMapWidgetState extends State<JobMapWidget> {
                                 children: [
                                   Container(
                                     child: Text(
-                                      StringHelper()
-                                          .getDateString(widget.job.date.toDate()),
+                                      StringHelper().getDateString(
+                                          widget.event.date.toDate()),
                                       style: StyleConstants.subTextReg,
                                     ),
                                   ),
                                   Text(
                                     StringHelper()
-                                        .getTimeString(widget.job.date.toDate()),
+                                        .getTimeString(widget.event.date.toDate()),
                                     style: StyleConstants.subTextReg,
                                   ),
                                 ],
@@ -93,7 +92,7 @@ class _JobMapWidgetState extends State<JobMapWidget> {
                           Row(
                             children: [
                               Text(
-                                widget.job.name,
+                                widget.event.name,
                                 style: StyleConstants.titleTextBold,
                               ),
                               SizedBox(
