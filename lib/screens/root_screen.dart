@@ -32,8 +32,7 @@ class _RootScreenState extends State<RootScreen> {
       StyleConstants().init(context);
     }
 
-    UserProvider userProvider = Provider.of<UserProvider>(context);
-    if (userProvider.user == null) {
+    if (FirebaseAuth.instance.currentUser == null) {
       return const LoginScreen();
     } else {
       return Scaffold(

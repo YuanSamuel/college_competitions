@@ -66,10 +66,12 @@ class FirebaseService {
   }
 
   Future<String> uploadProfilePicture(File file) async {
+    print('start upload');
     FirebaseStorage storage = FirebaseStorage.instance;
     TaskSnapshot task = await storage.ref('profilePictures/${basename(file.path)}').putFile(file);
     String downloadURL =
         await task.ref.getDownloadURL();
+    print('finish');
     return downloadURL;
   }
 }
