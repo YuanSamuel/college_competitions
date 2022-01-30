@@ -14,12 +14,12 @@ class UserProvider extends ChangeNotifier {
 
   Future<void> setUpListener() async {
     auth.FirebaseAuth.instance.userChanges().listen((auth.User? firebaseUser) {
-      if (firebaseUser != null) {
+      if (firebaseUser == null) {
         _user = null;
       } else {
         FirebaseFirestore.instance
             .collection('users')
-            .doc(firebaseUser!.uid)
+            .doc(firebaseUser.uid)
             .snapshots()
             .listen((DocumentSnapshot snapshot) {
           _user = User.fromSnapshot(snapshot);
