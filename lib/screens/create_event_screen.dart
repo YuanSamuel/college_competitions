@@ -19,7 +19,6 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
-
   static final List<String> interests = [
     'Gardening',
     'Construction',
@@ -38,7 +37,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
   String dropDownInitVal2 = '1';
 
-  String dropDownInitVal = "Social 1";
+  String dropDownInitVal = "Gardening";
 
   double width = StyleConstants.width;
   double height = StyleConstants.height;
@@ -221,7 +220,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                               100,
                               GeoPoint(location.latitude, location.longitude),
                               Timestamp.fromDate(_eventDate!),
-                              [],
+                              [dropDownInitVal],
                               [],
                             );
 

@@ -279,26 +279,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
     List<Widget> cards = [];
 
     for (Job job in jobsProvider.allJobs) {
-      cards.add(Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: JobCardWidget(job: job),
-      ));
-      cards.add(
-        SizedBox(
-          width: width * 0.05,
-        ),
-      );
+      if (job.interests.isEmpty || userProvider.user!.interests.contains(job.interests[0])) {
+        cards.add(Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: JobCardWidget(job: job),
+        ));
+        cards.add(
+          SizedBox(
+            width: width * 0.05,
+          ),
+        );
+      }
     }
     for (Event event in eventsProvider.allEvents) {
-      cards.add(Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: EventCardWidget(event: event),
-      ));
-      cards.add(
-        SizedBox(
-          width: width * 0.05,
-        ),
-      );
+      if (event.interests.isEmpty || userProvider.user!.interests.contains(event.interests[0])) {
+        cards.add(Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: EventCardWidget(event: event),
+        ));
+        cards.add(
+          SizedBox(
+            width: width * 0.05,
+          ),
+        );
+      }
     }
 
     if (cards.isEmpty) {

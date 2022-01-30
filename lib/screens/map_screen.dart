@@ -4,6 +4,7 @@ import 'package:college_competitions/provider/current_location_provider.dart';
 import 'package:college_competitions/provider/events_provider.dart';
 import 'package:college_competitions/provider/jobs_provider.dart';
 import 'package:college_competitions/provider/map_provider.dart';
+import 'package:college_competitions/widgets/job_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,8 @@ class _MapScreenState extends State<MapScreen> {
   late GoogleMapController _googleMapController;
   late MapProvider _mapProvider;
   late CurrentLocationProvider _currentLocationProvider;
+
+  Job? _selectedJob;
 
   @override
   void dispose() {
@@ -43,14 +46,19 @@ class _MapScreenState extends State<MapScreen> {
             _currentLocationProvider.position!.longitude),
         zoom: 12);
     return Scaffold(
-      body: GoogleMap(
-        mapType: MapType.normal,
-        myLocationButtonEnabled: false,
-        zoomControlsEnabled: false,
-        initialCameraPosition: _cameraPosition!,
-        onMapCreated: (controller) => _googleMapController = controller,
-        //adding markers to map
-        markers: _createMarkers(),
+      body: Stack(
+        children: [
+          GoogleMap(
+            mapType: MapType.normal,
+            myLocationButtonEnabled: false,
+            zoomControlsEnabled: false,
+            initialCameraPosition: _cameraPosition!,
+            onMapCreated: (controller) => _googleMapController = controller,
+            //adding markers to map
+            markers: _createMarkers(),
+          ),
+          _selectedJob != null ? Align(alignment: Alignment.bottomCenter, child: JobMapWidget(job: _selectedJob!,),) : SizedBox.shrink(),
+        ],
       ),
     );
   }
@@ -76,9 +84,13 @@ class _MapScreenState extends State<MapScreen> {
               job.location.latitude,
               job.location.longitude,
             ),
-            infoWindow: InfoWindow(title: job.name, snippet: job.description),
+            // infoWindow: InfoWindow(title: job.name, snippet: job.description),
             icon: BitmapDescriptor.defaultMarkerWithHue(
-                BitmapDescriptor.hueGreen)),
+                BitmapDescriptor.hueGreen),
+            onTap: () {
+              _selectedJob = job;
+              setState(() {});
+            }),
       );
     }
 

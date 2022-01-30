@@ -37,7 +37,7 @@ class _CreateJobScreenState extends State<CreateJobScreen> {
 
   String dropDownInitVal2 = '1';
 
-  String dropDownInitVal = "Social 1";
+  String dropDownInitVal = "Gardening";
 
   double width = StyleConstants.width;
   double height = StyleConstants.height;
@@ -220,7 +220,7 @@ class _CreateJobScreenState extends State<CreateJobScreen> {
                               100,
                               GeoPoint(location.latitude, location.longitude),
                               Timestamp.fromDate(_jobDate!),
-                              [],
+                              [dropDownInitVal],
                               [],
                             );
 
