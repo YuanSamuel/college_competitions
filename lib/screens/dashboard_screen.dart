@@ -19,58 +19,85 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: Container(
         height: height,
         width: width,
-        child: Column(
-          children: [
-            SizedBox(height: height * 0.1,),
-            Container(
-              height: height * 0.3,
-              width: width * 0.9,
-              padding: EdgeInsets.all(10.0),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: Offset(0, 3), // changes position of shadow
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: AssetImage('assets/profpic1.jpg'),
-                        radius: width * 0.15,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: height * 0.1,),
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  height: height * 0.3,
+                  width: width * 0.9,
+                  padding: EdgeInsets.all(15.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                        offset: Offset(0, 3), // changes position of shadow
                       ),
-                      SizedBox(width: width * 0.04,),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Stack(
+                            children: [
+                              CircleAvatar(
+                                backgroundImage: AssetImage('assets/profpic1.jpg'),
+                                radius: width * 0.15,
+                              ),
+                              Positioned(
+                                bottom: 0.0,
+                                  right: 0.0,
+                                  child: CircleAvatar(
+                                    backgroundImage: AssetImage('assets/utlogo.png'),
+                                    radius: width * 0.05,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(width: width * 0.04,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Vincent Yuan', style: StyleConstants.titleTextReg),
+                              Text('UT Austin', style: StyleConstants.descTextReg),
+                            ],
+                          ),
+                        ],
+                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Vincent Yuan', style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.normal),),
-                          Text('UT Austin', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),),
+                          Text('500/1200', style: StyleConstants.subTextReg),
+                          SizedBox(height: height * 0.01,),
+                          LinearProgressIndicator(
+                            value: 0.7,
+                            valueColor: new AlwaysStoppedAnimation(StyleConstants.lightBlack),
+                            backgroundColor: StyleConstants.lightBlack.withOpacity(0.5),
+                          ),
+                          SizedBox(height: height * 0.01,),
+                          Text('Level 10', style: StyleConstants.subTextReg),
                         ],
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      Text('500/1200'),
-                      LinearProgressIndicator(
-                        value: 0.7,
-                      ),
-                    ],
-                  )
-                ],
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: height * 0.05,),
+              Text('Your Jobs and Events', style: StyleConstants.medTextBold,),
+            ],
+          ),
         ),
       ),
     );

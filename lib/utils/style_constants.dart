@@ -29,6 +29,20 @@ class StyleConstants {
 
   static Color darkBlue = const Color(0xff234E6F);
 
+  static TextStyle titleTextReg = TextStyle(fontSize: 30.0, fontWeight: FontWeight.normal, color: lightBlack);
+
+  static TextStyle titleTextBold = TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, color: lightBlack);
+
+  static TextStyle medTextReg = TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal, color: lightBlack);
+
+  static TextStyle medTextBold = TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: lightBlack);
+
+  static TextStyle descTextReg = TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal, color: lightBlack);
+
+  static TextStyle subTextReg = TextStyle(fontSize: 15.0, fontWeight: FontWeight.w400, color: lightBlack);
+
+
+
 
 
 }
