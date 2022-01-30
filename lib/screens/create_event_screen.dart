@@ -131,7 +131,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                 print('confirm $date');
                               },
                                   currentTime: DateTime.now(),
-                                  locale: LocaleType.zh);
+                                  locale: LocaleType.en);
                             },
                             child: Text(
                               'Pick date & time',
