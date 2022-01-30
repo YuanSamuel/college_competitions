@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:college_competitions/models/College.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class CollegeDataService {
   Future<List<College>> getCollegeFromName(String name) async {
@@ -32,5 +35,14 @@ class CollegeDataService {
     }
 
     return college;
+  }
+
+  Future<String> uploadProfilePicture(File file) async {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    TaskSnapshot task = await storage.ref('profilePictures/${file.hashCode}').putFile(file);
+    String downloadURL = await storage
+        .ref('profilePictures/${file.hashCode}')
+        .getDownloadURL();
+    return downloadURL;
   }
 }
