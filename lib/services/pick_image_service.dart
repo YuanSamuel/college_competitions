@@ -1,9 +1,13 @@
 import 'dart:io';
 
+import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class PickImageService {
+  double width = StyleConstants.width;
+  double height = StyleConstants.height;
+
   Future<File?> pickImage(BuildContext context) async {
     ImageSource? source = await showDialog<ImageSource>(
       context: context,
@@ -16,8 +20,9 @@ class PickImageService {
                 Navigator.pop(context, ImageSource.camera);
               },
               child: Row(
-                children: const [
+                children: [
                   Icon(Icons.camera_alt_outlined),
+                  SizedBox(width: width * 0.05,),
                   Text('Camera'),
                 ],
               ),
@@ -27,8 +32,9 @@ class PickImageService {
                 Navigator.pop(context, ImageSource.gallery);
               },
               child: Row(
-                children: const [
+                children:  [
                   Icon(Icons.collections_outlined),
+                  SizedBox(width: width * 0.05,),
                   Text('Gallery'),
                 ],
               ),

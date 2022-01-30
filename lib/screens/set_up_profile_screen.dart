@@ -189,7 +189,6 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                         ),
                         GFMultiSelect(
                           items: StringConstants.interests,
-                          // items: ['poop', 'dshit', ],
                           onSelect: (List<dynamic> interests) {
                             _interests = [];
                             for (int i = 0; i < interests.length; i++) {
