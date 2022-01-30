@@ -37,6 +37,7 @@ class _JobMapWidgetState extends State<JobMapWidget> {
   Widget build(BuildContext context) {
     return Container(
       width: width * 0.8,
+      height: height * 0.28,
       child: Stack(
         children: [
           Align(
