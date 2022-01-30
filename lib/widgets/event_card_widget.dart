@@ -32,7 +32,11 @@ class EventCardWidget extends StatelessWidget {
         children: [
           Text('Clean Up Campus', style: StyleConstants.medTextBold,),
           SizedBox(height: height * 0.02,),
-          Text("Join us in helping keep our campus clean! Spots limited so sign up soon...", style: StyleConstants.descTextReg,),
+          Text("Join us in helping keep our campus clean! Spots limited so sign up soon...",
+            style: StyleConstants.descTextReg,
+            maxLines: 3,
+            overflow: TextOverflow.ellipsis,
+          ),
           Spacer(),
           Row(
             children: [

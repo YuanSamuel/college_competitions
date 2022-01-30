@@ -1,8 +1,8 @@
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 
-class JobCardWidget extends StatelessWidget {
-   JobCardWidget({Key? key}) : super(key: key);
+class FeaturedEventWidget extends StatelessWidget {
+  FeaturedEventWidget({Key? key}) : super(key: key);
 
 
   double width = StyleConstants.width;
@@ -11,12 +11,14 @@ class JobCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height * 0.25,
-      width: width * 0.6,
+      height: height * 0.20,
+      width: width * 0.80,
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
+        // Took out box shadow
+        /*
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -24,34 +26,38 @@ class JobCardWidget extends StatelessWidget {
             blurRadius: 7,
             offset: Offset(0, 3), // changes position of shadow
           ),
-        ],
+        ],*/
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Row(
+            children: [
+              //Container for blue circle
+              Spacer(),
+              Spacer(),
+              Icon(Icons.access_time_rounded, size: 15.0, color: StyleConstants.lightBlue,),
+              SizedBox(width: width * 0.01,),
+              Text('2/15/2022', style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),)
+            ],
+          ),
           Text('Clean Up Campus', style: StyleConstants.medTextBold,),
           SizedBox(height: height * 0.02,),
-          Text("Join us in helping keep our campus clean! Spots limited so sign up soon...",
-            style: StyleConstants.descTextReg,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-          ),
-          Spacer(),
           Row(
             children: [
               Icon(Icons.location_on, size: 15.0, color: StyleConstants.lightBlue,),
               SizedBox(width: width * 0.01,),
               Text('Jester East', style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),),
               Spacer(),
+              Spacer(),
               Icon(Icons.people, size: 15.0, color: StyleConstants.lightBlue,),
               SizedBox(width: width * 0.01,),
-              Text('6/12', style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),),
+              Text('6/12', style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),)
             ],
-          )
+          ),
         ],
       ),
-
     );
   }
 }
