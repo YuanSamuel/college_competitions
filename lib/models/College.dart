@@ -21,5 +21,6 @@ class College {
   Map<String, dynamic> toJson() => {
         'name': name,
         'logoUrl': logoUrl,
+        'points': points,
       };
 }

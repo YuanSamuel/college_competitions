@@ -29,7 +29,6 @@ class _RootScreenState extends State<RootScreen> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseAuth.instance.signOut();
     if (StyleConstants.height == 0) {
       StyleConstants().init(context);
     }
