@@ -14,6 +14,7 @@ class EventsProvider extends ChangeNotifier {
     FirebaseFirestore.instance
         .collection('events')
         .where('college', isEqualTo: user.college)
+        .where('registered', arrayContains: user.reference!.id)
         .snapshots()
         .listen((QuerySnapshot query) {
       _userEvents = [];

@@ -8,8 +8,11 @@ import 'package:college_competitions/provider/colleges_provider.dart';
 import 'package:college_competitions/provider/events_provider.dart';
 import 'package:college_competitions/provider/jobs_provider.dart';
 import 'package:college_competitions/provider/user_provider.dart';
+import 'package:college_competitions/screens/create_job_screen.dart';
 import 'package:college_competitions/services/user_service.dart';
 import 'package:college_competitions/utils/style_constants.dart';
+import 'package:college_competitions/widgets/ActionButton.dart';
+import 'package:college_competitions/widgets/ExpandableFab.dart';
 import 'package:college_competitions/widgets/event_card_widget.dart';
 import 'package:college_competitions/widgets/job_card_widget.dart';
 import 'package:college_competitions/widgets/leaderboard_tile_widget.dart';
@@ -27,6 +30,9 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+
+  static const _actionTitles = ['Create Event', 'Create Job'];
+
   double width = StyleConstants.width;
   double height = StyleConstants.height;
 
@@ -46,12 +52,24 @@ class _DashboardScreenState extends State<DashboardScreen> {
     List<int> userLevel = UserService().getLevel(userProvider.user!.points);
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: StyleConstants.darkBlue,
-        onPressed: (){
-          Navigator.push(context, new MaterialPageRoute(builder: (_) => CreateEventScreen()));
-        },
-        child: Icon(Icons.add),
+      floatingActionButton: ExpandableFab(
+        children: [
+          // Create event page
+          ActionButton(
+            onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (_) => CreateEventScreen()));
+            },
+            icon: const Icon(Icons.event),
+          ),
+          // Create job page
+          ActionButton(
+            onPressed: () {
+              Navigator.push(context, new MaterialPageRoute(builder: (_) => CreateJobScreen()));
+            },
+            icon: const Icon(Icons.emoji_people),
+          ),
+        ],
+        distance: 110.0,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -207,6 +225,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
       return const Scaffold();
     }
   }
+
+
 
   Widget _buildUserOpportunities() {
     List<Widget> cards = [];
