@@ -10,14 +10,25 @@ class StyleConstants {
 
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
-    height = (_mediaQueryData!.size.height -
-        (_mediaQueryData!.padding.top + _mediaQueryData!.padding.bottom))!;
+    height = _mediaQueryData!.size.height -
+        (_mediaQueryData!.padding.top + _mediaQueryData!.padding.bottom);
     width = _mediaQueryData!.size.width -
         (_mediaQueryData!.padding.left + _mediaQueryData!.padding.right);
 
     print('height: ' + height.toString() + ' width: ' + width.toString());
   }
 
-//colors
+  //colors
+  static Color darkWhite = const Color(0xffF7F8FC);
+
+  static Color lightBlack = const Color(0xff575B5F);
+
+  static Color lightGrey = const Color(0xffF7F8FC);
+
+  static Color lightBlue = const Color(0xff9FD7FF);
+
+  static Color darkBlue = const Color(0xff234E6F);
+
+
 
 }
