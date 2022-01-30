@@ -57,6 +57,24 @@ class _EventCardWidgetState extends State<EventCardWidget> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            Container(
+              width: width * 0.2,
+              height: height * 0.035,
+              decoration: BoxDecoration(
+                color: StyleConstants.lightBlue,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Center(
+                child: Text(
+                  widget.event.interests.isNotEmpty ? widget.event.interests[0] : 'None',
+                  style: StyleConstants.subTextReg
+                      .copyWith(color: Colors.white),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: height * 0.01,
+            ),
             Text(
               widget.event.name,
               style: StyleConstants.medTextBold,

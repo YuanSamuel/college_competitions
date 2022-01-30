@@ -20,19 +20,21 @@ class AcceptJobScreen extends StatefulWidget {
 }
 
 class _AcceptJobScreenState extends State<AcceptJobScreen> {
+  String location = '';
+
   double width = StyleConstants.width;
   double height = StyleConstants.height;
-
   User? organizer;
 
   @override
   void initState() {
-    getOrganizer();
+    getData();
     super.initState();
   }
 
-  Future<void> getOrganizer() async {
+  Future<void> getData() async {
     organizer = await FirebaseService().getOrganizer(widget.job.organizerId);
+    location = await StringHelper().getLocationName(widget.job.location);
     setState(() {});
   }
 
@@ -224,7 +226,7 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                                         Icon(Icons.phone, color: StyleConstants.lightBlue,),
                                         SizedBox(width: width * 0.05,),
                                         Text(
-                                          "${organizer!.phone}",
+                                          organizer != null ? organizer!.phone : '',
                                           style: StyleConstants.descTextReg,
                                         ),
                                       ],
@@ -239,7 +241,7 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                                         Icon(Icons.email_outlined, color: StyleConstants.lightBlue,),
                                         SizedBox(width: width * 0.05,),
                                         Text(
-                                          "${organizer!.email}",
+                                          organizer != null ? organizer!.email : '',
                                           style: StyleConstants.descTextReg,
                                         ),
                                       ],
@@ -269,8 +271,10 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                                         Icon(Icons.location_on, color: StyleConstants.lightBlue,),
                                         SizedBox(width: width * 0.05,),
                                         Text(
-                                          "Jester East",
+                                          location,
                                           style: StyleConstants.descTextReg,
+                                          maxLines: 5,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ],
                                     )

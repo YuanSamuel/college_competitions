@@ -74,7 +74,7 @@ class _UpcomingEventWidgetState extends State<UpcomingEventWidget> {
                   ),
                   child: Center(
                     child: Text(
-                      'Social',
+                      widget.event.interests.isNotEmpty ? widget.event.interests[0] : 'None',
                       style: StyleConstants.subTextReg
                           .copyWith(color: Colors.white),
                     ),

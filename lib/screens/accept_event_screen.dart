@@ -3,7 +3,6 @@ import 'package:college_competitions/models/Event.dart';
 import 'package:college_competitions/models/User.dart';
 import 'package:college_competitions/provider/colleges_provider.dart';
 import 'package:college_competitions/services/firebase_service.dart';
-import 'package:college_competitions/services/user_service.dart';
 import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
@@ -19,19 +18,21 @@ class AcceptEventScreen extends StatefulWidget {
 }
 
 class _AcceptEventScreenState extends State<AcceptEventScreen> {
+  String location = '';
+
   double width = StyleConstants.width;
   double height = StyleConstants.height;
-
   User? organizer;
 
   @override
   void initState() {
-    getOrganizer();
+    getData();
     super.initState();
   }
 
-  Future<void> getOrganizer() async {
+  Future<void> getData() async {
     organizer = await FirebaseService().getOrganizer(widget.event.organizerId);
+    location = await StringHelper().getLocationName(widget.event.location);
     setState(() {});
   }
 
@@ -126,7 +127,7 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                               Icon(Icons.phone, color: StyleConstants.lightBlue,),
                               SizedBox(width: width * 0.05,),
                               Text(
-                                "${organizer!.phone}",
+                                organizer != null ? organizer!.phone : '',
                                 style: StyleConstants.descTextReg,
                               ),
                             ],
@@ -141,7 +142,7 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                               Icon(Icons.email_outlined, color: StyleConstants.lightBlue,),
                               SizedBox(width: width * 0.05,),
                               Text(
-                                "${organizer!.email}",
+                                organizer != null ? organizer!.email : '',
                                 style: StyleConstants.descTextReg,
                               ),
                             ],
@@ -171,8 +172,10 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                               Icon(Icons.location_on, color: StyleConstants.lightBlue,),
                               SizedBox(width: width * 0.05,),
                               Text(
-                                "Jester East",
+                                location,
                                 style: StyleConstants.descTextReg,
+                                maxLines: 5,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ],
                           )

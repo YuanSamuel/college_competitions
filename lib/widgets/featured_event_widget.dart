@@ -64,7 +64,21 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
           children: [
             Row(
               children: [
-                //Container for blue circle
+                Container(
+                  width: width * 0.2,
+                  height: height * 0.035,
+                  decoration: BoxDecoration(
+                    color: StyleConstants.lightBlue,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Center(
+                    child: Text(
+                      widget.event.interests.isNotEmpty ? widget.event.interests[0] : 'None',
+                      style: StyleConstants.subTextReg
+                          .copyWith(color: Colors.white),
+                    ),
+                  ),
+                ),
                 Spacer(),
                 Icon(
                   Icons.access_time_rounded,
@@ -80,6 +94,9 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
                       .copyWith(color: StyleConstants.lightBlue),
                 )
               ],
+            ),
+            SizedBox(
+              height: height * 0.01,
             ),
             Text(
               widget.event.name,
