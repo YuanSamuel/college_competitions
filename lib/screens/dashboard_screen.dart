@@ -55,7 +55,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Stack(
                               children: [
                                 CircleAvatar(
-                                  backgroundImage: AssetImage('assets/profpic1.jpg'),
+                                  foregroundImage: AssetImage('assets/profpic1.jpg'),
                                   radius: width * 0.15,
                                 ),
                                 Positioned(

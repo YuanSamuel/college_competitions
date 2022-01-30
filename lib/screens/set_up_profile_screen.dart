@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_competitions/models/ChooseCollege.dart';
 import 'package:college_competitions/models/User.dart';
 import 'package:college_competitions/services/firebase_service.dart';
 import 'package:college_competitions/services/pick_image_service.dart';
@@ -28,7 +30,7 @@ class SetUpProfileScreen extends StatefulWidget {
 
 class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
   File? _profilePicture;
-  String _college = '';
+  ChooseCollege? _chooseCollege;
   List<String> _interests = [];
 
   @override
@@ -53,13 +55,13 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
           ),
           ElevatedButton(
             onPressed: () async {
-              _college = await showModalBottomSheet<String>(
+              _chooseCollege = await showModalBottomSheet<ChooseCollege>(
                       context: context,
                       isScrollControlled: true,
                       builder: (context) {
                         return const PickCollegeModal();
                       }) ??
-                  _college;
+                  _chooseCollege;
 
               setState(() {});
             },
@@ -80,18 +82,24 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                 bool works = await FirebaseService()
                     .signUp(widget.email, widget.password);
 
-                if (works) {
+                if (works && _chooseCollege != null) {
                   String profileUrl = '';
                   if (_profilePicture != null) {
                     profileUrl = await FirebaseService()
                         .uploadProfilePicture(_profilePicture!);
                   }
 
-                  User user = User(widget.name, _college, widget.email,
-                      widget.phoneNumber, profileUrl, 0, _interests);
+                  User user = User(
+                      widget.name,
+                      _chooseCollege!.name,
+                      widget.email,
+                      widget.phoneNumber,
+                      profileUrl,
+                      0,
+                      _interests);
 
                   await FirebaseService().createUser(user);
-
+                  await FirebaseService().updateCollege(_chooseCollege!);
                   int count = 0;
                   Navigator.popUntil(context, (route) => count++ == 2);
                 } else {

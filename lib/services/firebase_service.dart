@@ -1,6 +1,10 @@
+import 'dart:ffi';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:college_competitions/models/ChooseCollege.dart';
+import 'package:college_competitions/models/College.dart';
 import 'package:college_competitions/models/Event.dart';
 import 'package:college_competitions/models/Job.dart';
 import 'package:college_competitions/models/User.dart';
@@ -68,10 +72,37 @@ class FirebaseService {
   Future<String> uploadProfilePicture(File file) async {
     print('start upload');
     FirebaseStorage storage = FirebaseStorage.instance;
-    TaskSnapshot task = await storage.ref('profilePictures/${basename(file.path)}').putFile(file);
-    String downloadURL =
-        await task.ref.getDownloadURL();
+    TaskSnapshot task = await storage
+        .ref('profilePictures/${basename(file.path)}')
+        .putFile(file);
+    String downloadURL = await task.ref.getDownloadURL();
     print('finish');
     return downloadURL;
+  }
+
+  Future<String> uploadCollegeLogo(String name, Uint8List? data) async {
+    if (data != null) {
+      FirebaseStorage storage = FirebaseStorage.instance;
+      TaskSnapshot task = await storage.ref('collegeLogos/$name').putData(data);
+      String downloadURL = await task.ref.getDownloadURL();
+      return downloadURL;
+    } else {
+      return '';
+    }
+  }
+
+  Future<void> updateCollege(ChooseCollege college) async {
+    QuerySnapshot query = await FirebaseFirestore.instance
+        .collection('colleges')
+        .where('name', isEqualTo: college.name)
+        .get();
+    if (query.size == 0) {
+      String url = await uploadCollegeLogo(college.name, college.logo);
+      College newCollege = College(college.name, url, 0);
+      FirebaseFirestore.instance
+          .collection('colleges')
+          .doc(college.name)
+          .set(newCollege.toJson());
+    }
   }
 }

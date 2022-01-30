@@ -1,3 +1,4 @@
+import 'package:college_competitions/provider/auth_provider.dart';
 import 'package:college_competitions/provider/user_provider.dart';
 import 'package:college_competitions/screens/dashboard_screen.dart';
 import 'package:college_competitions/screens/events_screen.dart';
@@ -32,7 +33,9 @@ class _RootScreenState extends State<RootScreen> {
       StyleConstants().init(context);
     }
 
-    if (FirebaseAuth.instance.currentUser == null) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
+    if (!authProvider.loggedIn) {
       return const LoginScreen();
     } else {
       return Scaffold(
