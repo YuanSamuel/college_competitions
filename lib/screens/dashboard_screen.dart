@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:college_competitions/animations/FadeAnimationLeft.dart';
 import 'package:college_competitions/models/College.dart';
 import 'package:college_competitions/models/Event.dart';
 import 'package:college_competitions/models/Job.dart';
@@ -11,6 +12,7 @@ import 'package:college_competitions/services/user_service.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:college_competitions/widgets/event_card_widget.dart';
 import 'package:college_competitions/widgets/job_card_widget.dart';
+import 'package:college_competitions/widgets/leaderboard_tile_widget.dart';
 import 'package:college_competitions/widgets/no_opportunities_card.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -107,7 +109,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                                 collegesProvider.colleges!)
                                             .logoUrl)
                                         .image,
-                                    radius: width * 0.05,
+                                    radius: width * 0.04,
                                   ),
                                 ),
                               ],
@@ -115,14 +117,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             SizedBox(
                               width: width * 0.04,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(userProvider.user!.name,
-                                    style: StyleConstants.titleTextReg),
-                                Text(userProvider.user!.college,
-                                    style: StyleConstants.descTextReg),
-                              ],
+                            Container(
+                              width: width * 0.4,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(userProvider.user!.name,
+                                      style: StyleConstants.titleTextReg, overflow: TextOverflow.ellipsis,),
+                                  Text(userProvider.user!.college,
+                                      style: StyleConstants.descTextReg, overflow: TextOverflow.ellipsis,),
+                                ],
+                              ),
                             ),
                           ],
                         ),
@@ -190,7 +195,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   'Top 10 Schools',
                   style: StyleConstants.medTextBold,
                 ),
-                _buildTopSchools(),
+                Container(
+                    height: height * 0.5,
+                    child: _buildTopSchools()),
               ],
             ),
           ),
@@ -237,7 +244,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     List<Widget> cards = [];
 
     for (Job job in jobsProvider.allJobs) {
-      cards.add(JobCardWidget(job: job));
+      cards.add(Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: JobCardWidget(job: job),
+      ));
       cards.add(
         SizedBox(
           width: width * 0.05,
@@ -245,7 +255,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       );
     }
     for (Event event in eventsProvider.allEvents) {
-      cards.add(EventCardWidget(event: event));
+      cards.add(Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: EventCardWidget(event: event),
+      ));
       cards.add(
         SizedBox(
           width: width * 0.05,
@@ -268,7 +281,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _buildTopSchools() {
     List<College> colleges = [...collegesProvider.colleges!];
     colleges.sort((College collegeA, College collegeB) {
-      return collegeA.points - collegeB.points;
+      return collegeB.points - collegeA.points;
     });
 
     List<Widget> tiles = [];
@@ -278,9 +291,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
         height: height * 0.01,
       ));
     }
+    return ListView.builder(
+        itemCount: colleges.length,
+        itemBuilder: (BuildContext context, int index) {
+          return FadeAnimationLeft(
+              1 + (index + 1) / 3.0,
+              Padding(
+                padding: const EdgeInsets.only(
+                  left: 10,
+                  right: 10,
+                ),
+                child: LeaderboardTileWidget(
+                  index: index + 1,
+                  college: colleges[index],
+                ),
+              ));
+        });
 
-    return Column(
-      children: tiles,
-    );
+    // return Column(
+    //   children: tiles,
+    // );
   }
 }
