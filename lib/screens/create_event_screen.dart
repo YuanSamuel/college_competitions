@@ -52,7 +52,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          height: height,
+          height: height * 1.2,
           width: width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -99,11 +99,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                 ),
               ),
               Container(
-                height: height * 0.8,
+                height: height,
                 width: width,
                 color: StyleConstants.darkBlue,
                 child: Container(
-                  height: height * 0.8,
+                  height: height,
                   width: width,
                   decoration: BoxDecoration(
                     color: Colors.white,
