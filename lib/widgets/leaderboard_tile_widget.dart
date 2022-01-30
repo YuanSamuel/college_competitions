@@ -46,7 +46,7 @@ class LeaderboardTileWidget extends StatelessWidget {
                           ? "2nd"
                           : index == 3
                               ? "3rd"
-                              : "${index}",
+                              : "${index}th",
                   style: TextStyle(fontSize: 15, color: StyleConstants.lightGrey),
                 ),
               ),
