@@ -25,7 +25,10 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
   @override
   Widget build(BuildContext context) {
     collegesProvider = Provider.of<CollegesProvider>(context);
-
+    List<College> colleges = [...collegesProvider.colleges!];
+    colleges.sort((College collegeA, College collegeB) {
+      return collegeB.points - collegeA.points;
+    });
 
     return Scaffold(
       body: Container(
@@ -70,7 +73,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                             image: DecorationImage(
                                 fit: BoxFit.scaleDown,
                                 image: NetworkImage(
-                                    "https://i1.wp.com/www.essayhell.com/wp-content/uploads/2017/07/UTT_text_logo.svg_.png?ssl=1"))),
+                                    colleges[1].logoUrl))),
                       ),
                       Positioned(
                         bottom: 0,
@@ -124,7 +127,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                             image: DecorationImage(
                                 fit: BoxFit.scaleDown,
                                 image: NetworkImage(
-                                    "https://th.bing.com/th/id/R.71703b29799d2bed86e57011d2a6f5ef?rik=tMheKZ2MywPIHA&riu=http%3a%2f%2fwww.freelogovectors.net%2fwp-content%2fuploads%2f2020%2f10%2ftexas-a-m-aggies-logo.png&ehk=TUcnEMBRK6cHtvA0ZT4%2b7wfD%2fYOoOAF1%2fsQgNQJipRU%3d&risl=&pid=ImgRaw&r=0"))),
+                                    colleges[0].logoUrl))),
                       ),
                       Positioned(
                         bottom: 0,
@@ -178,7 +181,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                             image: DecorationImage(
                                 fit: BoxFit.scaleDown,
                                 image: NetworkImage(
-                                    "https://i1.wp.com/www.essayhell.com/wp-content/uploads/2017/07/UTT_text_logo.svg_.png?ssl=1"))),
+                                    colleges[2].logoUrl))),
                       ),
                       Positioned(
                         bottom: 0,

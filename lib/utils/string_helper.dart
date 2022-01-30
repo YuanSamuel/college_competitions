@@ -1,8 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 
 class StringHelper {
-  Future<String> getLocationName(Position location) async {
+  Future<String> getLocationName(GeoPoint location) async {
     List<Placemark> placemarks =
         await placemarkFromCoordinates(location.latitude, location.latitude);
 

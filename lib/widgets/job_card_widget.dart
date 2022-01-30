@@ -1,14 +1,33 @@
 import 'package:college_competitions/models/Job.dart';
+import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 
-class JobCardWidget extends StatelessWidget {
-  JobCardWidget({Key? key, required this.job}) : super(key: key);
+class JobCardWidget extends StatefulWidget {
+  const JobCardWidget({Key? key, required this.job}) : super(key: key);
 
   final Job job;
 
+  @override
+  _JobCardWidgetState createState() => _JobCardWidgetState();
+}
+
+class _JobCardWidgetState extends State<JobCardWidget> {
+  String location = '';
+
   double width = StyleConstants.width;
   double height = StyleConstants.height;
+
+  @override
+  void initState() {
+    setLocation();
+    super.initState();
+  }
+
+  Future<void> setLocation() async {
+    location = await StringHelper().getLocationName(widget.job.location);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +52,14 @@ class JobCardWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            job.name,
+            widget.job.name,
             style: StyleConstants.medTextBold,
           ),
           SizedBox(
             height: height * 0.02,
           ),
           Text(
-            job.description,
+            widget.job.description,
             style: StyleConstants.descTextReg,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
@@ -57,7 +76,7 @@ class JobCardWidget extends StatelessWidget {
                 width: width * 0.01,
               ),
               Text(
-                'Jester East',
+                location,
                 style: StyleConstants.subTextReg
                     .copyWith(color: StyleConstants.lightBlue),
               ),
@@ -71,9 +90,9 @@ class JobCardWidget extends StatelessWidget {
                 width: width * 0.01,
               ),
               Text(
-                job.registered.length.toString() +
+                widget.job.registered.length.toString() +
                     '/' +
-                    job.capacity.toString(),
+                    widget.job.capacity.toString(),
                 style: StyleConstants.subTextReg
                     .copyWith(color: StyleConstants.lightBlue),
               ),

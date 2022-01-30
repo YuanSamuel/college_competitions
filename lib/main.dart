@@ -2,6 +2,7 @@ import 'package:college_competitions/firebase_options.dart';
 import 'package:college_competitions/provider/auth_provider.dart';
 import 'package:college_competitions/provider/colleges_provider.dart';
 import 'package:college_competitions/provider/current_location_provider.dart';
+import 'package:college_competitions/provider/map_provider.dart';
 import 'package:college_competitions/screens/root_screen.dart';
 import 'package:college_competitions/provider/events_provider.dart';
 import 'package:college_competitions/provider/jobs_provider.dart';
@@ -62,6 +63,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(create: (_) => CollegesProvider()),
         ChangeNotifierProvider(create: (_) => CurrentLocationProvider()),
+        ChangeNotifierProvider(create: (_) => MapProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

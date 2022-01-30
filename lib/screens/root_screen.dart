@@ -1,14 +1,11 @@
 import 'package:college_competitions/provider/auth_provider.dart';
-import 'package:college_competitions/provider/user_provider.dart';
 import 'package:college_competitions/screens/dashboard_screen.dart';
 import 'package:college_competitions/screens/events_screen.dart';
-import 'package:college_competitions/screens/job_map_screen.dart';
 import 'package:college_competitions/screens/leaderboard_screen.dart';
 import 'package:college_competitions/screens/login_screen.dart';
 import 'package:college_competitions/screens/map_screen.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
