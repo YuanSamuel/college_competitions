@@ -96,11 +96,11 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                 ),
               ),
               Container(
-                height: height * 0.8,
+                height: height * 1.8,
                 width: width,
                 color: StyleConstants.darkBlue,
                 child: Container(
-                  height: height * 0.8,
+                  height: height * 1.8,
                   width: width,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -140,6 +140,7 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                           onTap: () async {
                             _chooseCollege =
                                 await showModalBottomSheet<ChooseCollege>(
+
                                         context: context,
                                         isScrollControlled: true,
                                         builder: (context) {
@@ -183,63 +184,26 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                             style: StyleConstants.medTextReg,
                           ),
                         ),
-                        // MultiSelectDialogField(
-                        //   items: StringConstants.interests.map((e) => MultiSelectItem(e, e.toString())).toList(),
-                        //   listType: MultiSelectListType.CHIP,
-                        //   onSelectionChanged: (),
-                        //   // onConfirm: (interests) {
-                        //   //   // print(interests);
-                        //   //   var temp = List<String>.from(interests);
-                        //   //     for (int i = 0; i < temp.length; i++) {
-                        //   //       _interests.add(StringConstants.interests[temp[i]]);
-                        //   //     }
-                        //   //     setState(() {
-                        //   //
-                        //   //     });
-                        //   //   // StringConstants.interests.map
-                        //   // },
-                        // ),
-                        // MultiSelectChipField(
-                        //   items: StringConstants.interests.map((e) => MultiSelectItem(e, e)).toList(),
-                        //   onTap: (List<dynamic> values) {
-                        //     print(values);
-                        //     setState(() {
-                        //       _interests = List<String>.from(values);
-                        //     });
-                        //   },
-                        // ),
-                        // MultiSelectDialogField(
-                        //   items: StringConstants.interests.map((e) => MultiSelectItem(e, e.toString())).toList(),
-                        //   listType: MultiSelectListType.CHIP,
-                        //   title: Text(StringConstants.interests.toString()),
-                        //   onConfirm: (List<dynamic> interests) {
-                        //     _interests = [];
-                        //     for (int i = 0; i < interests.length; i++) {
-                        //       _interests
-                        //           .add(StringConstants.interests[interests[i]]);
-                        //     }
-                        //     setState(() {
-                        //
-                        //     });
-                        //   },
-                        // ),
                         GFMultiSelect(
                           items: StringConstants.interests,
+                          // items: ['poop', 'dshit', ],
                           onSelect: (List<dynamic> interests) {
                             _interests = [];
                             for (int i = 0; i < interests.length; i++) {
                               _interests
                                   .add(StringConstants.interests[interests[i]]);
                             }
+
                             setState(() {});
                           },
+
                           dropdownTitleTileTextStyle:
                           const TextStyle(fontSize: 14, color: Colors.black54),
                           padding: const EdgeInsets.all(6),
                           margin: const EdgeInsets.all(6),
                           type: GFCheckboxType.basic,
-                          activeBgColor: GFColors.SUCCESS,
-                          activeBorderColor: GFColors.SUCCESS,
+                          activeBgColor: StyleConstants.lightBlue,
+                          activeBorderColor: StyleConstants.lightBlue,
                           inactiveBorderColor: Colors.grey.shade200,
                           size: GFSize.MEDIUM,
                         ),
