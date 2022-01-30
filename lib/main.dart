@@ -1,9 +1,13 @@
 import 'package:college_competitions/firebase_options.dart';
+import 'package:college_competitions/provider/auth_provider.dart';
+import 'package:college_competitions/provider/colleges_provider.dart';
+import 'package:college_competitions/provider/current_location_provider.dart';
 import 'package:college_competitions/screens/root_screen.dart';
 import 'package:college_competitions/provider/events_provider.dart';
 import 'package:college_competitions/provider/jobs_provider.dart';
 import 'package:college_competitions/provider/user_provider.dart';
 import 'package:college_competitions/utils/style_constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +26,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProxyProvider<AuthProvider, UserProvider>(
+            create: (_) => UserProvider(),
+            update: (BuildContext context, AuthProvider authProvider,
+                UserProvider? userProvider) {
+              if (authProvider.loggedIn) {
+                return UserProvider()
+                  ..setUpListener(FirebaseAuth.instance.currentUser!.uid);
+              } else {
+                return UserProvider();
+              }
+            }),
         ChangeNotifierProxyProvider<UserProvider, EventsProvider>(
           create: (_) => EventsProvider(),
           update: (BuildContext context, UserProvider userProvider,
@@ -45,6 +60,8 @@ class MyApp extends StatelessWidget {
             return jobsProvider;
           },
         ),
+        ChangeNotifierProvider(create: (_) => CollegesProvider()),
+        ChangeNotifierProvider(create: (_) => CurrentLocationProvider()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

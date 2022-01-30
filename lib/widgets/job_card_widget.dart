@@ -1,9 +1,11 @@
+import 'package:college_competitions/models/Job.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 
 class JobCardWidget extends StatelessWidget {
-   JobCardWidget({Key? key}) : super(key: key);
+  JobCardWidget({Key? key, required this.job}) : super(key: key);
 
+  final Job job;
 
   double width = StyleConstants.width;
   double height = StyleConstants.height;
@@ -30,9 +32,15 @@ class JobCardWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text('Clean Up Campus', style: StyleConstants.medTextBold,),
-          SizedBox(height: height * 0.02,),
-          Text("Join us in helping keep our campus clean! Spots limited so sign up soon...",
+          Text(
+            job.name,
+            style: StyleConstants.medTextBold,
+          ),
+          SizedBox(
+            height: height * 0.02,
+          ),
+          Text(
+            job.description,
             style: StyleConstants.descTextReg,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
@@ -40,18 +48,39 @@ class JobCardWidget extends StatelessWidget {
           Spacer(),
           Row(
             children: [
-              Icon(Icons.location_on, size: 15.0, color: StyleConstants.lightBlue,),
-              SizedBox(width: width * 0.01,),
-              Text('Jester East', style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),),
+              Icon(
+                Icons.location_on,
+                size: 15.0,
+                color: StyleConstants.lightBlue,
+              ),
+              SizedBox(
+                width: width * 0.01,
+              ),
+              Text(
+                'Jester East',
+                style: StyleConstants.subTextReg
+                    .copyWith(color: StyleConstants.lightBlue),
+              ),
               Spacer(),
-              Icon(Icons.people, size: 15.0, color: StyleConstants.lightBlue,),
-              SizedBox(width: width * 0.01,),
-              Text('6/12', style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),),
+              Icon(
+                Icons.people,
+                size: 15.0,
+                color: StyleConstants.lightBlue,
+              ),
+              SizedBox(
+                width: width * 0.01,
+              ),
+              Text(
+                job.registered.length.toString() +
+                    '/' +
+                    job.capacity.toString(),
+                style: StyleConstants.subTextReg
+                    .copyWith(color: StyleConstants.lightBlue),
+              ),
             ],
           )
         ],
       ),
-
     );
   }
 }
