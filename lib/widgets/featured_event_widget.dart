@@ -42,7 +42,7 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
         );
       },
       child: Container(
-        height: height * 0.22,
+        height: height * 0.24,
         width: width * 0.80,
         padding: EdgeInsets.all(15.0),
         decoration: BoxDecoration(
