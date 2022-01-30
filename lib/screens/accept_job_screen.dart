@@ -44,17 +44,17 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
 
     return Scaffold(
       body: Container(
-        height: height,
+        height: height * 1.2,
         width: width,
         child: Column(
           children: [
             Container(
-              height: height * 0.2,
+              height: height * 0.15,
               width: width,
               color: Colors.white,
               child: Container(
                 width: width,
-                height: height * 0.2,
+                height: height * 0.15,
                 decoration: BoxDecoration(
                   color: StyleConstants.darkBlue,
                   borderRadius:
@@ -89,11 +89,11 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
               ),
             ),
             Container(
-              height: height * 0.8,
+              height: height * 0.85,
               width: width,
               color: StyleConstants.darkBlue,
               child: Container(
-                height: height * 0.8,
+                height: height * 0.85,
                 width: width,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -104,9 +104,7 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                   padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: height * 0.02,
-                      ),
+
                       FadeAnimationUp(
                         0.8,
                         Column(
@@ -210,9 +208,14 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                                         children: [
                                           Icon(Icons.info_outline, color: StyleConstants.lightBlue,),
                                           SizedBox(width: width * 0.05,),
-                                          Text(
-                                            widget.job.description,
-                                            style: StyleConstants.descTextReg,
+                                          Container(
+                                            width: width * 0.67,
+                                            child: Text(
+                                              widget.job.description,
+                                              style: StyleConstants.descTextReg,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
                                           ),
                                         ],
                                       )
@@ -270,11 +273,15 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                                       children: [
                                         Icon(Icons.location_on, color: StyleConstants.lightBlue,),
                                         SizedBox(width: width * 0.05,),
-                                        Text(
-                                          location,
-                                          style: StyleConstants.descTextReg,
-                                          maxLines: 5,
-                                          overflow: TextOverflow.ellipsis,
+                                        Container(
+                                          width: width * 0.67,
+
+                                          child: Text(
+                                            location,
+                                            style: StyleConstants.descTextReg,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
                                       ],
                                     )

@@ -93,11 +93,14 @@ class _JobMapWidgetState extends State<JobMapWidget> {
                             Spacer(),
                             Row(
                               children: [
-                                Text(
-                                  widget.job.name,
-                                  style: StyleConstants.titleTextBold,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
+                                Container(
+                                  width: width * 0.67,
+                                  child: Text(
+                                    widget.job.name,
+                                    style: StyleConstants.titleTextBold,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
                                 ),
                                 SizedBox(
                                   width: width * 0.025,
