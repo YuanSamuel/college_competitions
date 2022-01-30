@@ -24,7 +24,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             SizedBox(height: height * 0.1,),
             Container(
               height: height * 0.3,
-              width: width * 0.8,
+              width: width * 0.9,
+              padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20.0),
@@ -38,12 +39,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ],
               ),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Image(
-                        image: AssetImage('assets/profpic1.jpg'),
-                      )
+                      CircleAvatar(
+                        backgroundImage: AssetImage('assets/profpic1.jpg'),
+                        radius: width * 0.15,
+                      ),
+                      SizedBox(width: width * 0.04,),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Vincent Yuan', style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.normal),),
+                          Text('UT Austin', style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal),),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text('500/1200'),
+                      LinearProgressIndicator(
+                        value: 0.7,
+                      ),
                     ],
                   )
                 ],
