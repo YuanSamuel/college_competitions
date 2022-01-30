@@ -10,6 +10,10 @@ class JobMapScreen extends StatefulWidget {
 class _JobMapScreenState extends State<JobMapScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Center(
+        child: Text('job map'),
+      ),
+    );
   }
 }

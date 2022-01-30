@@ -10,6 +10,10 @@ class EventsScreen extends StatefulWidget {
 class _EventsScreenState extends State<EventsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Center(
+        child: Text('events'),
+      ),
+    );
   }
 }

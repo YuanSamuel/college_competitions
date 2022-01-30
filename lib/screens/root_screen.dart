@@ -27,7 +27,7 @@ class _RootScreenState extends State<RootScreen> {
     return Scaffold(
       body: _pageOptions[_selectedTab],
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           boxShadow: <BoxShadow>[
             BoxShadow(
                 color: Colors.black54,
@@ -39,11 +39,11 @@ class _RootScreenState extends State<RootScreen> {
         ),
         child: CurvedNavigationBar(
           backgroundColor: Colors.grey.shade200,
-          items: <Widget>[
+          items: const <Widget>[
+            Icon(Icons.home, size: 30),
+            Icon(Icons.map, size: 30),
             Icon(Icons.calendar_today, size: 30),
             Icon(Icons.insert_chart, size: 30),
-            Icon(Icons.people, size: 30),
-            Icon(Icons.person_pin, size: 30),
           ],
           onTap: (index) {
             setState(() {
