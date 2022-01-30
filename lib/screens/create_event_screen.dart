@@ -162,22 +162,13 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           ),
                         ),
                         SizedBox(height: height * 0.04,),
-                        Text('Number Required', style: StyleConstants.medTextReg,),
-                        DropdownButton(
-                          value: dropDownInitVal2,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: numPeopleRequired.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(items),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropDownInitVal2 = newValue!;
-                            });
-                          },
+                        TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Number of people required',
+                          ),
                         ),
+                        SizedBox(height: height * 0.03,),
                         GestureDetector(
                           onTap: ()  {
                             Navigator.pop(context);
