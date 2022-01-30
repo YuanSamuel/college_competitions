@@ -29,6 +29,7 @@ class User {
         'name': name,
         'college': college,
         'email': email,
+        'phone': phone,
         'profileUrl': profileUrl,
         'points': points,
         'interests': interests,

@@ -1,4 +1,4 @@
-import 'package:college_competitions/models/College.dart';
+import 'package:college_competitions/models/ChooseCollege.dart';
 import 'package:college_competitions/services/college_data_service.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class PickCollegeModal extends StatefulWidget {
 
 class _PickCollegeModalState extends State<PickCollegeModal> {
   TextEditingController _collegeNameInputController = TextEditingController();
-  List<College> _collegeSuggestions = [];
+  List<ChooseCollege> _collegeSuggestions = [];
 
   @override
   Widget build(BuildContext context) {
@@ -34,23 +34,29 @@ class _PickCollegeModalState extends State<PickCollegeModal> {
               setState(() {});
             },
           ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: _collegeSuggestions.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                leading: _collegeSuggestions[index].logo != null
-                    ? Image.memory(_collegeSuggestions[index].logo!)
-                    : Image.asset('assets/no_profile_icon'),
-                title: Text(_collegeSuggestions[index].name),
-                onTap: () {
-                  Navigator.pop(context, _collegeSuggestions[index].name);
-                },
-              );
-            },
-          ),
+          SingleChildScrollView(
+            child: Column(
+              children: _buildTiles(),
+            ),
+          )
         ],
       ),
     );
+  }
+
+  List<Widget> _buildTiles() {
+    List<Widget> tiles = [];
+    for (ChooseCollege college in _collegeSuggestions) {
+      tiles.add(ListTile(
+        leading: college.logo != null
+            ? Image.memory(college.logo!)
+            : Image.asset('assets/no_profile_icon.png'),
+        title: Text(college.name),
+        onTap: () {
+          Navigator.pop(context, college);
+        },
+      ));
+    }
+    return tiles;
   }
 }
