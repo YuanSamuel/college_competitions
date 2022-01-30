@@ -6,12 +6,16 @@ import 'package:geocoding/geocoding.dart';
 class StringHelper {
   Future<String> getLocationName(GeoPoint location) async {
     List<Placemark> placemarks =
-        await placemarkFromCoordinates(location.latitude, location.latitude);
+        await placemarkFromCoordinates(location.latitude, location.longitude);
 
     String name = '';
 
     name += placemarks[0].name ?? '';
+    name += ', ';
+    name += placemarks[0].street ?? '';
+    name += ', ';
     name += placemarks[0].locality ?? '';
+    name += ', ';
     name += placemarks[0].administrativeArea ?? '';
 
     return name;
@@ -37,5 +41,16 @@ class StringHelper {
       minuteString = '0' + minuteString;
     }
     return hour.toString() + ":" + minuteString + (pm ? 'pm' : 'am');
+  }
+
+  String getTimeDifference(DateTime time) {
+    Duration difference = time.difference(DateTime.now());
+    if (difference.inDays > 0) {
+      return difference.inDays.toString() + ' days';
+    } else if (difference.inHours > 0) {
+      return difference.inHours.toString() + ' hours';
+    } else {
+      return difference.inMinutes.toString() + ' minutes';
+    }
   }
 }
