@@ -4,6 +4,7 @@ import 'package:college_competitions/provider/current_location_provider.dart';
 import 'package:college_competitions/provider/events_provider.dart';
 import 'package:college_competitions/provider/jobs_provider.dart';
 import 'package:college_competitions/provider/map_provider.dart';
+import 'package:college_competitions/utils/style_constants.dart';
 import 'package:college_competitions/widgets/job_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -23,6 +24,9 @@ class _MapScreenState extends State<MapScreen> {
   late GoogleMapController _googleMapController;
   late MapProvider _mapProvider;
   late CurrentLocationProvider _currentLocationProvider;
+
+  double width = StyleConstants.width;
+  double height = StyleConstants.height;
 
   Job? _selectedJob;
 
