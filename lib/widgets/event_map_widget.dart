@@ -1,5 +1,6 @@
 import 'package:college_competitions/models/Event.dart';
 import 'package:college_competitions/models/User.dart';
+import 'package:college_competitions/screens/accept_event_screen.dart';
 import 'package:college_competitions/services/firebase_service.dart';
 import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
@@ -43,7 +44,7 @@ class _EventMapWidgetState extends State<EventMapWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => EventMapWidget(event: widget.event),
+                builder: (_) => AcceptEventScreen(event: widget.event),
               ),
             );
           },
@@ -80,8 +81,8 @@ class _EventMapWidgetState extends State<EventMapWidget> {
                                     ),
                                   ),
                                   Text(
-                                    StringHelper()
-                                        .getTimeString(widget.event.date.toDate()),
+                                    StringHelper().getTimeString(
+                                        widget.event.date.toDate()),
                                     style: StyleConstants.subTextReg,
                                   ),
                                 ],
@@ -144,7 +145,9 @@ class _EventMapWidgetState extends State<EventMapWidget> {
                       child: Image(
                         image: organizer != null
                             ? Image.network(organizer!.profileUrl).image
-                            : Image.network('https://firebasestorage.googleapis.com/v0/b/college-competitions.appspot.com/o/profilePictures%2FRectangle%20443.png?alt=media&token=a67e01cf-d7f2-4163-bd8d-5d9797743403').image,
+                            : Image.network(
+                                    'https://firebasestorage.googleapis.com/v0/b/college-competitions.appspot.com/o/profilePictures%2FRectangle%20443.png?alt=media&token=a67e01cf-d7f2-4163-bd8d-5d9797743403')
+                                .image,
                         fit: BoxFit.cover,
                       ),
                     ),
