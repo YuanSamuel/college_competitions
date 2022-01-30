@@ -108,11 +108,15 @@ class _UpcomingEventWidgetState extends State<UpcomingEventWidget> {
                       size: 15.0,
                       color: StyleConstants.lightBlue,
                     ),
-                    Text(
-                      ' ' + location,
-                      style: StyleConstants.subTextReg.copyWith(
-                          color: StyleConstants.lightBlue,
-                          overflow: TextOverflow.ellipsis),
+                    Container(
+                      width: width * 0.5,
+                      child: Text(
+                        ' ' + location,
+                        style: StyleConstants.subTextReg.copyWith(
+                            color: StyleConstants.lightBlue,
+                            overflow: TextOverflow.ellipsis),
+                        maxLines: 2,
+                      ),
                     ),
                   ],
                 ),
@@ -144,11 +148,14 @@ class _UpcomingEventWidgetState extends State<UpcomingEventWidget> {
             SizedBox(
               height: height * 0.02,
             ),
-            Text(
-              widget.event.description,
-              style: StyleConstants.descTextReg,
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
+            Container(
+              width: width * 0.5,
+              child: Text(
+                widget.event.description,
+                style: StyleConstants.descTextReg,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
             Spacer(),
             Text(
