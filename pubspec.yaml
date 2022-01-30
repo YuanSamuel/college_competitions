@@ -48,6 +48,7 @@ dependencies:
   simple_animations: ^4.0.1
   supercharged: ^2.1.1
   curved_navigation_bar: ^1.0.2
+  flutter_datetime_picker: ^1.5.1
 
 dev_dependencies:
   flutter_test:
