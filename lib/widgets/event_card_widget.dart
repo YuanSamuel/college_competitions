@@ -69,6 +69,7 @@ class _EventCardWidgetState extends State<EventCardWidget> {
                   widget.event.interests.isNotEmpty ? widget.event.interests[0] : 'None',
                   style: StyleConstants.subTextReg
                       .copyWith(color: Colors.white),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),
@@ -85,7 +86,7 @@ class _EventCardWidgetState extends State<EventCardWidget> {
             Text(
               widget.event.description,
               style: StyleConstants.descTextReg,
-              maxLines: 3,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
             Spacer(),

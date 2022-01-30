@@ -42,6 +42,8 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
   ChooseCollege? _chooseCollege;
   List<String> _interests = [];
 
+  bool _loading = false;
+
   @override
   Widget build(BuildContext context) {
     double width = StyleConstants.width;
@@ -104,7 +106,8 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                   width: width,
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(40.0)),
+                    borderRadius:
+                        BorderRadius.only(topLeft: Radius.circular(40.0)),
                   ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: width * 0.05),
@@ -125,7 +128,8 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                             backgroundColor: Colors.white,
                             foregroundImage: _profilePicture != null
                                 ? Image.file(_profilePicture!).image
-                                : const AssetImage('assets/no_profile_icon.png'),
+                                : const AssetImage(
+                                    'assets/no_profile_icon.png'),
                             radius: 30.0,
                           ),
                         ),
@@ -143,7 +147,6 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                           onTap: () async {
                             _chooseCollege =
                                 await showModalBottomSheet<ChooseCollege>(
-
                                         context: context,
                                         isScrollControlled: true,
                                         builder: (context) {
@@ -198,9 +201,8 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
 
                             setState(() {});
                           },
-
-                          dropdownTitleTileTextStyle:
-                          const TextStyle(fontSize: 14, color: Colors.black54),
+                          dropdownTitleTileTextStyle: const TextStyle(
+                              fontSize: 14, color: Colors.black54),
                           padding: const EdgeInsets.all(6),
                           margin: const EdgeInsets.all(6),
                           type: GFCheckboxType.basic,
@@ -212,52 +214,62 @@ class _SetUpProfileScreenState extends State<SetUpProfileScreen> {
                         SizedBox(
                           height: height * 0.05,
                         ),
-                        GestureDetector(
-                          onTap: () async {
-                            bool works = await FirebaseService()
-                                .signUp(widget.email, widget.password);
+                        !_loading
+                            ? GestureDetector(
+                                onTap: () async {
+                                  _loading = true;
+                                  setState(() {});
+                                  bool works = await FirebaseService()
+                                      .signUp(widget.email, widget.password);
 
-                            if (works && _chooseCollege != null) {
-                              String profileUrl = '';
-                              if (_profilePicture != null) {
-                                profileUrl = await FirebaseService()
-                                    .uploadProfilePicture(_profilePicture!);
-                              }
+                                  if (works && _chooseCollege != null) {
+                                    String profileUrl = '';
+                                    if (_profilePicture != null) {
+                                      profileUrl = await FirebaseService()
+                                          .uploadProfilePicture(
+                                              _profilePicture!);
+                                    }
 
-                              User user = User(
-                                  widget.name,
-                                  _chooseCollege!.name,
-                                  widget.email,
-                                  widget.phoneNumber,
-                                  profileUrl,
-                                  0,
-                                  _interests);
+                                    User user = User(
+                                        widget.name,
+                                        _chooseCollege!.name,
+                                        widget.email,
+                                        widget.phoneNumber,
+                                        profileUrl,
+                                        0,
+                                        _interests);
 
-                              await FirebaseService().createUser(user);
-                              await FirebaseService()
-                                  .updateCollege(_chooseCollege!);
-                              int count = 0;
-                              Navigator.popUntil(context, (route) => count++ == 2);
-                            } else {
-                              print('cannot make account');
-                            }
-                          },
-                          child: Container(
-                            height: height * 0.07,
-                            width: width * 0.9,
-                            decoration: BoxDecoration(
-                              color: StyleConstants.darkBlue,
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Complete',
-                                style: StyleConstants.medTextBold
-                                    .copyWith(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                        ),
+                                    await FirebaseService().createUser(user);
+                                    await FirebaseService()
+                                        .updateCollege(_chooseCollege!);
+                                    int count = 0;
+                                    Navigator.popUntil(
+                                        context, (route) => count++ == 2);
+                                  } else {
+                                    print('cannot make account');
+                                    _loading = false;
+                                    setState(() {
+
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  height: height * 0.07,
+                                  width: width * 0.9,
+                                  decoration: BoxDecoration(
+                                    color: StyleConstants.darkBlue,
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Complete',
+                                      style: StyleConstants.medTextBold
+                                          .copyWith(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : CircularProgressIndicator(),
                       ],
                     ),
                   ),

@@ -76,6 +76,7 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
                       widget.event.interests.isNotEmpty ? widget.event.interests[0] : 'None',
                       style: StyleConstants.subTextReg
                           .copyWith(color: Colors.white),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),

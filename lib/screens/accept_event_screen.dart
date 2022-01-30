@@ -43,21 +43,21 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
 
     return Scaffold(
       body: Container(
-        height: height,
+        height: height * 1.2,
         width: width,
         child: Column(
           children: [
             Container(
-              height: height * 0.2,
+              height: height * 0.15,
               width: width,
               color: Colors.white,
               child: Container(
                 width: width,
-                height: height * 0.2,
+                height: height * 0.15,
                 decoration: BoxDecoration(
                   color: StyleConstants.darkBlue,
                   borderRadius:
-                      BorderRadius.only(bottomRight: Radius.circular(40.0)),
+                  BorderRadius.only(bottomRight: Radius.circular(40.0)),
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(15.0),
@@ -77,7 +77,7 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                           width: width * 0.1,
                         ),
                         Text(
-                          'View Event',
+                          'View Job',
                           style: StyleConstants.medTextBold
                               .copyWith(color: Colors.white),
                         )
@@ -88,23 +88,22 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
               ),
             ),
             Container(
-              height: height * 0.8,
+              height: height * 0.85,
               width: width,
               color: StyleConstants.darkBlue,
               child: Container(
-                height: height * 0.8,
+                height: height * 0.85,
                 width: width,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius:
-                      BorderRadius.only(topLeft: Radius.circular(40.0)),
+                  BorderRadius.only(topLeft: Radius.circular(40.0)),
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: width * 0.05),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: height * 0.02,),
+
                       FadeAnimationUp(
                         0.8,
                         Column(
@@ -194,90 +193,103 @@ class _AcceptEventScreenState extends State<AcceptEventScreen> {
                                 ],
                               ),
                             ),
+                            Center(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: height * 0.05,),
+                                    FadeAnimationUp(
+                                        1.5,
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Icon(Icons.info_outline, color: StyleConstants.lightBlue,),
+                                            SizedBox(width: width * 0.05,),
+                                            Container(
+                                              width: width * 0.67,
+                                              child: Text(
+                                                widget.event.description,
+                                                style: StyleConstants.descTextReg,
+                                                maxLines: 5,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                    SizedBox(height: height * 0.02,),
+                                    FadeAnimationUp(
+                                        1.7,
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Icon(Icons.phone, color: StyleConstants.lightBlue,),
+                                            SizedBox(width: width * 0.05,),
+                                            Text(
+                                              organizer != null ? organizer!.phone : '',
+                                              style: StyleConstants.descTextReg,
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                    SizedBox(height: height * 0.02,),
+                                    FadeAnimationUp(
+                                        1.9,
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Icon(Icons.email_outlined, color: StyleConstants.lightBlue,),
+                                            SizedBox(width: width * 0.05,),
+                                            Text(
+                                              organizer != null ? organizer!.email : '',
+                                              style: StyleConstants.descTextReg,
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                    SizedBox(height: height * 0.02,),
+                                    FadeAnimationUp(
+                                        2.1,
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Icon(Icons.access_time_outlined, color: StyleConstants.lightBlue,),
+                                            SizedBox(width: width * 0.05,),
+                                            Text(
+                                              "${StringHelper().getTimeString(widget.event.date.toDate())} ${StringHelper().getDateString(widget.event.date.toDate())}",
+                                              style: StyleConstants.descTextReg,
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                    SizedBox(height: height * 0.02,),
+                                    FadeAnimationUp(
+                                        2.3,
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Icon(Icons.location_on, color: StyleConstants.lightBlue,),
+                                            SizedBox(width: width * 0.05,),
+                                            Container(
+                                              width: width * 0.67,
+
+                                              child: Text(
+                                                location,
+                                                style: StyleConstants.descTextReg,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                  ],
+                                ),
+                              ),),
                           ],
                         ),
-                      ),
-                      SizedBox(height: height * .03),
-                      FadeAnimationUp(
-                          1.5,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(Icons.info_outline, color: StyleConstants.lightBlue,),
-                              SizedBox(width: width * 0.05,),
-                              Container(
-                                width: width * 0.7,
-                                child: Text(
-                                  widget.event.description,
-                                  style: StyleConstants.descTextReg,
-                                  maxLines: 5,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          )
-                      ),
-                      SizedBox(height: height * 0.02,),
-                      FadeAnimationUp(
-                          1.7,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(Icons.phone, color: StyleConstants.lightBlue,),
-                              SizedBox(width: width * 0.05,),
-                              Text(
-                                organizer != null ? organizer!.phone : '',
-                                style: StyleConstants.descTextReg,
-                              ),
-                            ],
-                          )
-                      ),
-                      SizedBox(height: height * 0.02,),
-                      FadeAnimationUp(
-                          1.9,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(Icons.email_outlined, color: StyleConstants.lightBlue,),
-                              SizedBox(width: width * 0.05,),
-                              Text(
-                                organizer != null ? organizer!.email : '',
-                                style: StyleConstants.descTextReg,
-                              ),
-                            ],
-                          )
-                      ),
-                      SizedBox(height: height * 0.02,),
-                      FadeAnimationUp(
-                          2.1,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(Icons.access_time_outlined, color: StyleConstants.lightBlue,),
-                              SizedBox(width: width * 0.05,),
-                              Text(
-                                "${StringHelper().getTimeString(widget.event.date.toDate())} ${StringHelper().getDateString(widget.event.date.toDate())}",
-                                style: StyleConstants.descTextReg,
-                              ),
-                            ],
-                          )
-                      ),
-                      SizedBox(height: height * 0.02,),
-                      FadeAnimationUp(
-                          2.3,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(Icons.location_on, color: StyleConstants.lightBlue,),
-                              SizedBox(width: width * 0.05,),
-                              Text(
-                                location,
-                                style: StyleConstants.descTextReg,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                          )
                       ),
                       SizedBox(height: height * .03),
                       FadeAnimationUp(

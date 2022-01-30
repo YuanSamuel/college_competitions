@@ -51,7 +51,7 @@ class _EventMapWidgetState extends State<EventMapWidget> {
             },
             child: Container(
               width: width * 0.8,
-              height: height * 0.28,
+              height: height * 0.25,
               child: Stack(
                 children: [
                   Align(
@@ -96,6 +96,7 @@ class _EventMapWidgetState extends State<EventMapWidget> {
                                 Text(
                                   widget.event.name,
                                   style: StyleConstants.titleTextBold,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(
                                   width: width * 0.025,

@@ -42,7 +42,7 @@ class _UpcomingEventWidgetState extends State<UpcomingEventWidget> {
         );
       },
       child: Container(
-        height: height * 0.32,
+        height: height * 0.3,
         width: width * 0.6,
         padding: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
@@ -77,6 +77,7 @@ class _UpcomingEventWidgetState extends State<UpcomingEventWidget> {
                       widget.event.interests.isNotEmpty ? widget.event.interests[0] : 'None',
                       style: StyleConstants.subTextReg
                           .copyWith(color: Colors.white),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ),
@@ -153,7 +154,7 @@ class _UpcomingEventWidgetState extends State<UpcomingEventWidget> {
               child: Text(
                 widget.event.description,
                 style: StyleConstants.descTextReg,
-                maxLines: 3,
+                maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
             ),

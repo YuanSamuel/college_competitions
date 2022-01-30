@@ -68,6 +68,7 @@ class _JobCardWidgetState extends State<JobCardWidget> {
                   widget.job.interests.isNotEmpty ? widget.job.interests[0] : 'None',
                   style: StyleConstants.subTextReg
                       .copyWith(color: Colors.white),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),
@@ -84,7 +85,7 @@ class _JobCardWidgetState extends State<JobCardWidget> {
             Text(
               widget.job.description,
               style: StyleConstants.descTextReg,
-              maxLines: 3,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
             Spacer(),

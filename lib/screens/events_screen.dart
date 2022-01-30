@@ -53,7 +53,7 @@ class _EventsScreenState extends State<EventsScreen> {
                 height: height * 0.07,
               ),
               Text(
-                'Upcoming Events',
+                'Your Upcoming Events',
                 style: StyleConstants.medTextBold,
               ),
               SizedBox(
