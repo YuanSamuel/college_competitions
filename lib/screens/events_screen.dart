@@ -112,6 +112,7 @@ class _EventsScreenState extends State<EventsScreen> {
                   );
                 },
               ),
+              SizedBox(height: height * 0.1,),
             ],
           ),
         ),
