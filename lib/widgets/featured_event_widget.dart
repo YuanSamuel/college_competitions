@@ -1,9 +1,12 @@
+import 'package:college_competitions/models/Event.dart';
+import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 
 class FeaturedEventWidget extends StatelessWidget {
-  FeaturedEventWidget({Key? key}) : super(key: key);
+  FeaturedEventWidget({Key? key, required this.event}) : super(key: key);
 
+  final Event event;
 
   double width = StyleConstants.width;
   double height = StyleConstants.height;
@@ -39,11 +42,15 @@ class FeaturedEventWidget extends StatelessWidget {
               Spacer(),
               Icon(Icons.access_time_rounded, size: 15.0, color: StyleConstants.lightBlue,),
               SizedBox(width: width * 0.01,),
-              Text('2/15/2022', style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),)
+              Text(StringHelper().getDateString(event.date.toDate()), style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),)
             ],
           ),
-          Text('Clean Up Campus', style: StyleConstants.medTextBold,),
+          Text(event.name, style: StyleConstants.medTextBold,),
           SizedBox(height: height * 0.02,),
+
+          Text(event.description, style: StyleConstants.subTextReg,),
+          SizedBox(height: height * 0.02,),
+
           Row(
             children: [
               Icon(Icons.location_on, size: 15.0, color: StyleConstants.lightBlue,),
@@ -53,7 +60,7 @@ class FeaturedEventWidget extends StatelessWidget {
               Spacer(),
               Icon(Icons.people, size: 15.0, color: StyleConstants.lightBlue,),
               SizedBox(width: width * 0.01,),
-              Text('6/12', style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),)
+              Text(event.registered.length.toString() + '/' + event.capacity.toString(), style: StyleConstants.subTextReg.copyWith(color: StyleConstants.lightBlue),)
             ],
           ),
         ],

@@ -64,7 +64,7 @@ class _MapScreenState extends State<MapScreen> {
         //default set to UT Austin.
         target: LatLng(currentLocationProvider.position!.latitude,
             currentLocationProvider.position!.longitude),
-        zoom: 10);
+        zoom: 12);
     return Scaffold(
       body: GoogleMap(
         mapType: MapType.normal,

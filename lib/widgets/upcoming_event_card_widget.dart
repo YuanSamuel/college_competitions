@@ -1,8 +1,11 @@
+import 'package:college_competitions/models/Event.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 
 class UpcomingEventWidget extends StatelessWidget {
-  UpcomingEventWidget({Key? key}) : super(key: key);
+  UpcomingEventWidget({Key? key, required this.event}) : super(key: key);
+
+  final Event event;
 
   double width = StyleConstants.width;
   double height = StyleConstants.height;
@@ -96,7 +99,7 @@ class UpcomingEventWidget extends StatelessWidget {
                     width: width * 0.01,
                   ),
                   Text(
-                    ' 6/12',
+                    ' ' + event.registered.length.toString() + '/' + event.capacity.toString(),
                     style: StyleConstants.subTextReg
                         .copyWith(color: StyleConstants.lightBlue),
                   )
@@ -106,14 +109,14 @@ class UpcomingEventWidget extends StatelessWidget {
           ),
           SizedBox(height: height * 0.02,),
           Text(
-            "Join us in helping keep our campus clean! Spots limited so sign up soon...",
+            event.description,
             style: StyleConstants.descTextReg,
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
           ),
           Spacer(),
           Text(
-            'Clean Up Campus',
+            event.name,
             style: StyleConstants.medTextBold,
           )
         ],
