@@ -17,6 +17,7 @@ import 'package:college_competitions/widgets/event_card_widget.dart';
 import 'package:college_competitions/widgets/job_card_widget.dart';
 import 'package:college_competitions/widgets/leaderboard_tile_widget.dart';
 import 'package:college_competitions/widgets/no_opportunities_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -80,7 +81,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: height * 0.1,
+                    height: height * 0.05,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Campus Connect', style: StyleConstants.medTextReg,),
+                      IconButton(
+                        onPressed: () {
+                          FirebaseAuth.instance.signOut();
+                        },
+                        icon: Icon(
+                          Icons.account_circle,
+                          color: StyleConstants.lightBlue,
+                          size: 35.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: height * 0.03,
                   ),
                   Align(
                     alignment: Alignment.center,

@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text('Welcome to ', textAlign: TextAlign.center, style: StyleConstants.titleTextReg.copyWith(color: Colors.white),),
-                        Text('College Community', textAlign: TextAlign.center, style: StyleConstants.titleTextBold.copyWith(color: Colors.white),)
+                        Text('Campus Connect', textAlign: TextAlign.center, style: StyleConstants.titleTextBold.copyWith(color: Colors.white),)
                       ],
                     ),
                   ),
