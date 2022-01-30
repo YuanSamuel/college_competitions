@@ -43,6 +43,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
     List<int> userLevel = UserService().getLevel(userProvider.user!.points);
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: StyleConstants.darkBlue,
+        onPressed: (){
+          Navigator.push(context, new MaterialPageRoute(builder: (_) => CreateEventScreen()));
+        },
+        child: Icon(Icons.add),
+      ),
       body: SingleChildScrollView(
         child: Container(
           child: Padding(

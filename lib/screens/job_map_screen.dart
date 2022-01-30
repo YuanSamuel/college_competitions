@@ -1,3 +1,5 @@
+import 'package:college_competitions/utils/style_constants.dart';
+import 'package:college_competitions/widgets/job_map_widget.dart';
 import 'package:flutter/material.dart';
 
 class JobMapScreen extends StatefulWidget {
@@ -10,10 +12,18 @@ class JobMapScreen extends StatefulWidget {
 class _JobMapScreenState extends State<JobMapScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('job map'),
-      ),
+
+    double height = StyleConstants.height;
+    double width = StyleConstants.width;
+
+    return Scaffold(
+        body: Column(
+          children: [
+            SizedBox(height: height * 0.4,),
+            JobMapWidget(),
+          ],
+        )
+
     );
   }
 }
