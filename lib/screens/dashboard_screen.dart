@@ -36,6 +36,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     jobsProvider = Provider.of<JobsProvider>(context);
     eventsProvider = Provider.of<EventsProvider>(context);
 
+    List<int> userLevel = UserService().getLevel(userProvider.user!.points);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -115,12 +117,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('500/1200', style: StyleConstants.subTextReg),
+                            Text(userLevel[1].toString() + '/' + userLevel[2].toString(), style: StyleConstants.subTextReg),
                             SizedBox(
                               height: height * 0.01,
                             ),
                             LinearProgressIndicator(
-                              value: 0.7,
+                              value: userLevel[1] / userLevel[2],
                               valueColor: AlwaysStoppedAnimation(
                                   StyleConstants.lightBlack),
                               backgroundColor:
@@ -129,7 +131,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             SizedBox(
                               height: height * 0.01,
                             ),
-                            Text('Level 10', style: StyleConstants.subTextReg),
+                            Text('Level ' + userLevel[0].toString(), style: StyleConstants.subTextReg),
                           ],
                         ),
                       ],
