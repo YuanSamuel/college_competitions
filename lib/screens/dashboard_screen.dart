@@ -212,7 +212,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
     List<Widget> cards = [];
 
     for (Job job in jobsProvider.userJobs) {
-      cards.add(JobCardWidget(job: job));
+      cards.add(Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: JobCardWidget(job: job),
+      ));
       cards.add(
         SizedBox(
           width: width * 0.05,
@@ -220,7 +223,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       );
     }
     for (Event event in eventsProvider.userEvents) {
-      cards.add(EventCardWidget(event: event));
+      cards.add(Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: EventCardWidget(event: event),
+      ));
       cards.add(
         SizedBox(
           width: width * 0.05,
