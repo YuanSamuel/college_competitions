@@ -32,14 +32,13 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height * 0.20,
+      height: height * 0.22,
       width: width * 0.80,
       padding: EdgeInsets.all(15.0),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20.0),
         // Took out box shadow
-        /*
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.2),
@@ -47,7 +46,7 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
             blurRadius: 7,
             offset: Offset(0, 3), // changes position of shadow
           ),
-        ],*/
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +55,6 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
           Row(
             children: [
               //Container for blue circle
-              Spacer(),
               Spacer(),
               Icon(
                 Icons.access_time_rounded,
@@ -82,6 +80,7 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
           ),
           Text(
             widget.event.description,
+            maxLines: 2,
             style: StyleConstants.subTextReg,
           ),
           SizedBox(
@@ -89,36 +88,52 @@ class _FeaturedEventWidgetState extends State<FeaturedEventWidget> {
           ),
           Row(
             children: [
-              Icon(
-                Icons.location_on,
-                size: 15.0,
-                color: StyleConstants.lightBlue,
-              ),
-              SizedBox(
-                width: width * 0.01,
-              ),
-              Text(
-                ' ' + location,
-                style: StyleConstants.subTextReg
-                    .copyWith(color: StyleConstants.lightBlue),
+              Container(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.location_on,
+                      size: 15.0,
+                      color: StyleConstants.lightBlue,
+                    ),
+                    SizedBox(
+                      width: width * 0.01,
+                    ),
+                    Container(
+                      width: width * 0.4,
+                      child: Text(
+                        ' ' + location,
+                        style: StyleConstants.subTextReg
+                            .copyWith(color: StyleConstants.lightBlue),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Spacer(),
-              Spacer(),
-              Icon(
-                Icons.people,
-                size: 15.0,
-                color: StyleConstants.lightBlue,
+              Container(
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.people,
+                      size: 15.0,
+                      color: StyleConstants.lightBlue,
+                    ),
+                    SizedBox(
+                      width: width * 0.01,
+                    ),
+                    Text(
+                      widget.event.registered.length.toString() +
+                          '/' +
+                          widget.event.capacity.toString(),
+                      style: StyleConstants.subTextReg
+                          .copyWith(color: StyleConstants.lightBlue),
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(
-                width: width * 0.01,
-              ),
-              Text(
-                widget.event.registered.length.toString() +
-                    '/' +
-                    widget.event.capacity.toString(),
-                style: StyleConstants.subTextReg
-                    .copyWith(color: StyleConstants.lightBlue),
-              )
             ],
           ),
         ],
