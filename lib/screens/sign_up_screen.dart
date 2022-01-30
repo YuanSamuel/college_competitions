@@ -39,22 +39,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           ElevatedButton(
             onPressed: () async {
-              bool works = await FirebaseService().signUp(
-                  _emailInputController.text.trim(),
-                  _passwordInputController.text.trim());
-
-              if (works) {
-                Navigator.push<void>(
-                  context,
-                  MaterialPageRoute<void>(
-                      builder: (_) => SetUpProfileScreen(
-                            name: _nameInputController.text.trim(),
-                            phoneNumber:
-                                _phoneNumberInputController.text.trim(),
-                            email: _emailInputController.text.trim(),
-                          )),
-                );
-              }
+              Navigator.push<void>(
+                context,
+                MaterialPageRoute<void>(
+                    builder: (_) => SetUpProfileScreen(
+                        name: _nameInputController.text.trim(),
+                        phoneNumber: _phoneNumberInputController.text.trim(),
+                        email: _emailInputController.text.trim(),
+                        password: _passwordInputController.text.trim())),
+              );
             },
             child: Text("Sign Up"),
           ),

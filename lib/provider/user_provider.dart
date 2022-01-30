@@ -16,15 +16,24 @@ class UserProvider extends ChangeNotifier {
     auth.FirebaseAuth.instance.userChanges().listen((auth.User? firebaseUser) {
       if (firebaseUser == null) {
         _user = null;
+        notifyListeners();
       } else {
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(firebaseUser.uid)
-            .snapshots()
-            .listen((DocumentSnapshot snapshot) {
-          _user = User.fromSnapshot(snapshot);
-          notifyListeners();
-        });
+        try {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(firebaseUser.uid)
+              .snapshots()
+              .listen((DocumentSnapshot snapshot) {
+            try {
+              _user = User.fromSnapshot(snapshot);
+              notifyListeners();
+            } catch (e) {
+              print(e);
+            }
+          });
+        } catch (e) {
+          print(e);
+        }
       }
     });
   }
