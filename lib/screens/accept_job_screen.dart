@@ -5,6 +5,7 @@ import 'package:college_competitions/models/User.dart';
 import 'package:college_competitions/provider/colleges_provider.dart';
 import 'package:college_competitions/services/firebase_service.dart';
 import 'package:college_competitions/services/user_service.dart';
+import 'package:college_competitions/utils/string_helper.dart';
 import 'package:college_competitions/utils/style_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -102,7 +103,7 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: 40,
+                        height: height * 0.02,
                       ),
                       FadeAnimationUp(
                         0.8,
@@ -195,16 +196,88 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                             ),
                             Center(
                                 child: Padding(
-                              padding: const EdgeInsets.all(40.0),
-                              child: FadeAnimationUp(
-                                1.5,
-                                Text(
-                                  widget.job.description +
-                                      (organizer != null ? '\n\nPhone Number: ${organizer!.phone} \nEmail: ${organizer!.email}' : ''),
-                                  style: StyleConstants.descTextReg,
-                                ),
+                              padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: height * 0.05,),
+                                  FadeAnimationUp(
+                                      1.5,
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Icon(Icons.info_outline, color: StyleConstants.lightBlue,),
+                                          SizedBox(width: width * 0.05,),
+                                          Text(
+                                            widget.job.description,
+                                            style: StyleConstants.descTextReg,
+                                          ),
+                                        ],
+                                      )
+                                  ),
+                                  SizedBox(height: height * 0.02,),
+                                  FadeAnimationUp(
+                                    1.7,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Icon(Icons.phone, color: StyleConstants.lightBlue,),
+                                        SizedBox(width: width * 0.05,),
+                                        Text(
+                                          "${organizer!.phone}",
+                                          style: StyleConstants.descTextReg,
+                                        ),
+                                      ],
+                                    )
+                                  ),
+                                  SizedBox(height: height * 0.02,),
+                                  FadeAnimationUp(
+                                    1.9,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Icon(Icons.email_outlined, color: StyleConstants.lightBlue,),
+                                        SizedBox(width: width * 0.05,),
+                                        Text(
+                                          "${organizer!.email}",
+                                          style: StyleConstants.descTextReg,
+                                        ),
+                                      ],
+                                    )
+                                  ),
+                                  SizedBox(height: height * 0.02,),
+                                  FadeAnimationUp(
+                                    2.1,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Icon(Icons.access_time_outlined, color: StyleConstants.lightBlue,),
+                                        SizedBox(width: width * 0.05,),
+                                        Text(
+                                          "${StringHelper().getTimeString(widget.job.date.toDate())} ${StringHelper().getDateString(widget.job.date.toDate())}",
+                                          style: StyleConstants.descTextReg,
+                                        ),
+                                      ],
+                                    )
+                                  ),
+                                  SizedBox(height: height * 0.02,),
+                                  FadeAnimationUp(
+                                    2.3,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Icon(Icons.location_on, color: StyleConstants.lightBlue,),
+                                        SizedBox(width: width * 0.05,),
+                                        Text(
+                                          "Jester East",
+                                          style: StyleConstants.descTextReg,
+                                        ),
+                                      ],
+                                    )
+                                  ),
+                                ],
                               ),
-                            )),
+                            ),),
                           ],
                         ),
                       ),
