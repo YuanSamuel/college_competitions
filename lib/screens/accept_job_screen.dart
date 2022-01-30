@@ -149,6 +149,8 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                                       borderRadius:
                                           BorderRadius.circular(100.0),
                                       child: Container(
+                                        width: width * 0.3,
+                                        height : width * 0.3,
                                         child: Image(
                                           image: organizer != null
                                               ? Image.network(
@@ -167,7 +169,8 @@ class _AcceptJobScreenState extends State<AcceptJobScreen> {
                                       borderRadius:
                                           BorderRadius.circular(100.0),
                                       child: Container(
-                                        height: 125,
+                                        width: width * 0.3,
+                                        height : width * 0.3,
                                         child: Image(
                                           fit: BoxFit.cover,
                                           image: organizer != null
