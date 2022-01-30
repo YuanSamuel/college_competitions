@@ -72,8 +72,12 @@ class _MapScreenState extends State<MapScreen> {
           _selectedJob != null
               ? Align(
                   alignment: Alignment.bottomCenter,
-                  child: JobMapWidget(
-                    job: _selectedJob!,
+                  child: Container(
+                    height: height * 0.3,
+
+                    child: JobMapWidget(
+                      job: _selectedJob!,
+                    ),
                   ),
                 )
               : _selectedEvent != null
@@ -158,16 +162,19 @@ class _MapScreenState extends State<MapScreen> {
 
     return Align(
       alignment: Alignment.bottomCenter,
-      child: ListView.builder(
-        shrinkWrap: true,
-        scrollDirection: Axis.horizontal,
-          itemCount: opportunities.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: opportunities[index],
-            );
-          }),
+      child: Container(
+        height: height * 0.4,
+        child: ListView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+            itemCount: opportunities.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                child: opportunities[index],
+              );
+            }),
+      ),
     );
   }
 }
