@@ -105,6 +105,7 @@ class _EventsScreenState extends State<EventsScreen> {
               ListView.builder(
                 shrinkWrap: true,
                 itemCount: sortedEvents.length,
+                physics: const ScrollPhysics(),
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),

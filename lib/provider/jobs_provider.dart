@@ -26,6 +26,7 @@ class JobsProvider extends ChangeNotifier {
 
     FirebaseFirestore.instance
         .collection('jobs')
+        .where('college', isEqualTo: user.college)
         .snapshots()
         .listen((QuerySnapshot query) {
       _allJobs = [];
