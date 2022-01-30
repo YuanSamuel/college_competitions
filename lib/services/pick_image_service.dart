@@ -39,7 +39,8 @@ class PickImageService {
     );
 
     if (source != null) {
-      XFile? file = await ImagePicker().pickImage(source: source);
+      XFile? file =
+          await ImagePicker().pickImage(source: source, imageQuality: 60);
       if (file != null) {
         return File(file.path);
       } else {

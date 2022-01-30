@@ -8,10 +8,14 @@ class CollegeDataService {
   Future<List<College>> getCollegeFromName(String name) async {
     Dio dio = Dio();
     Response response = await dio.get("http://universities.hipolabs.com/search",
-        queryParameters: {'name': name});
+        queryParameters: {'name': name, 'country': 'United States'});
     List<College> colleges = [];
     for (Map<String, dynamic> college in response.data) {
       colleges.add(College.fromJson(college));
+    }
+
+    if (colleges.length > 20) {
+      colleges.removeRange(20, colleges.length);
     }
 
     List<Future<College>> requests = [];
