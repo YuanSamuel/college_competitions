@@ -32,7 +32,7 @@ class LeaderboardTileWidget extends StatelessWidget {
             width: width * 0.12,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Colors.lightBlueAccent.shade200),
+                color: Colors.blue),
             child: Center(
               child: Text(
                 index == 1
@@ -41,7 +41,7 @@ class LeaderboardTileWidget extends StatelessWidget {
                         ? "2nd"
                         : index == 3
                             ? "3rd"
-                            : "${index}",
+                            : "${index}th",
                 style: TextStyle(fontSize: 15, color: StyleConstants.lightGrey),
               ),
             ),
@@ -78,7 +78,7 @@ class LeaderboardTileWidget extends StatelessWidget {
           Text(
             // "45,000 points",
             "${college.points}",
-            style: TextStyle(color: StyleConstants.lightBlue, fontSize: 15),
+            style: TextStyle(color: Colors.blue, fontSize: 15),
           )
         ],
       ),

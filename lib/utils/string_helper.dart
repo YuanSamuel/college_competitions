@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geocoding/geocoding.dart';
 
@@ -16,15 +18,24 @@ class StringHelper {
   }
 
   String getDateString(DateTime time) {
-    return time.month.toString() + '/' + time.day.toString() + '/' + time.year.toString();
+    return time.month.toString() +
+        '/' +
+        time.day.toString() +
+        '/' +
+        time.year.toString();
   }
 
   String getTimeString(DateTime time) {
+    bool pm = time.hour >= 12;
     int hour = time.hour % 12;
     if (hour == 0) {
-      hour++;
+      hour = 12;
     }
-    bool pm = hour >= 12;
-    return hour.toString() + ":" + time.minute.toString() + (pm ? 'pm' : 'am');
+
+    String minuteString = time.minute.toString();
+    if (minuteString.length == 1) {
+      minuteString = '0' + minuteString;
+    }
+    return hour.toString() + ":" + minuteString + (pm ? 'pm' : 'am');
   }
 }

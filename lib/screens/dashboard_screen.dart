@@ -30,7 +30,6 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-
   static const _actionTitles = ['Create Event', 'Create Job'];
 
   double width = StyleConstants.width;
@@ -49,184 +48,194 @@ class _DashboardScreenState extends State<DashboardScreen> {
     eventsProvider = Provider.of<EventsProvider>(context);
 
     if (userProvider.user != null) {
-    List<int> userLevel = UserService().getLevel(userProvider.user!.points);
+      List<int> userLevel = UserService().getLevel(userProvider.user!.points);
 
-    return Scaffold(
-      floatingActionButton: ExpandableFab(
-        children: [
-          // Create event page
-          ActionButton(
-            onPressed: () {
-              Navigator.push(context, new MaterialPageRoute(builder: (_) => CreateJobScreen()));
-            },
-            icon: const Icon(Icons.emoji_people),
-          ),
-          // Create job page
-          ActionButton(
-            onPressed: () {
-              Navigator.push(context, new MaterialPageRoute(builder: (_) => CreateEventScreen()));
-            },
-            icon: const Icon(Icons.event),
-          ),
-        ],
-        distance: 110.0,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: width * 0.05),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: height * 0.1,
-                ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: height * 0.3,
-                    width: width * 0.9,
-                    padding: EdgeInsets.all(15.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.2),
-                          spreadRadius: 6,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Stack(
-                              children: [
-                                CircleAvatar(
-                                  foregroundImage:
-                                      userProvider.user!.profileUrl.isNotEmpty
-                                          ? Image.network(
-                                                  userProvider.user!.profileUrl)
-                                              .image
-                                          : Image.asset('assets/profpic1.jpg')
-                                              .image,
-                                  radius: width * 0.15,
-                                ),
-                                Positioned(
-                                  bottom: 0.0,
-                                  right: 0.0,
-                                  child: CircleAvatar(
-                                    foregroundImage: Image.network(UserService()
-                                            .getUserCollege(userProvider.user!,
-                                                collegesProvider.colleges!)
-                                            .logoUrl)
-                                        .image,
-                                    radius: width * 0.04,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              width: width * 0.04,
-                            ),
-                            Container(
-                              width: width * 0.4,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+      return Scaffold(
+        floatingActionButton: ExpandableFab(
+          children: [
+            // Create event page
+            ActionButton(
+              onPressed: () {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (_) => CreateJobScreen()));
+              },
+              icon: const Icon(Icons.emoji_people),
+            ),
+            // Create job page
+            ActionButton(
+              onPressed: () {
+                Navigator.push(context,
+                    new MaterialPageRoute(builder: (_) => CreateEventScreen()));
+              },
+              icon: const Icon(Icons.event),
+            ),
+          ],
+          distance: 110.0,
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: height * 0.1,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: height * 0.3,
+                      width: width * 0.9,
+                      padding: EdgeInsets.all(15.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            spreadRadius: 6,
+                            blurRadius: 7,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Stack(
                                 children: [
-                                  Text(userProvider.user!.name,
-                                      style: StyleConstants.titleTextReg, overflow: TextOverflow.ellipsis,),
-                                  Text(userProvider.user!.college,
-                                      style: StyleConstants.descTextReg, overflow: TextOverflow.ellipsis,),
+                                  CircleAvatar(
+                                    foregroundImage: userProvider
+                                            .user!.profileUrl.isNotEmpty
+                                        ? Image.network(
+                                                userProvider.user!.profileUrl)
+                                            .image
+                                        : Image.asset('assets/profpic1.jpg')
+                                            .image,
+                                    radius: width * 0.15,
+                                  ),
+                                  Positioned(
+                                    bottom: 0.0,
+                                    right: 0.0,
+                                    child: CircleAvatar(
+                                      foregroundImage: Image.network(
+                                              UserService()
+                                                  .getUserCollege(
+                                                      userProvider.user!,
+                                                      collegesProvider
+                                                          .colleges!)
+                                                  .logoUrl)
+                                          .image,
+                                      radius: width * 0.04,
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                                userLevel[1].toString() +
-                                    '/' +
-                                    userLevel[2].toString(),
-                                style: StyleConstants.subTextReg),
-                            SizedBox(
-                              height: height * 0.01,
-                            ),
-                            LinearProgressIndicator(
-                              value: userLevel[1] / userLevel[2],
-                              valueColor: AlwaysStoppedAnimation(
-                                  StyleConstants.lightBlack),
-                              backgroundColor:
-                                  StyleConstants.lightBlack.withOpacity(0.5),
-                            ),
-                            SizedBox(
-                              height: height * 0.01,
-                            ),
-                            Text('Level ' + userLevel[0].toString(),
-                                style: StyleConstants.subTextReg),
-                          ],
-                        ),
-                      ],
+                              SizedBox(
+                                width: width * 0.04,
+                              ),
+                              Container(
+                                width: width * 0.4,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      userProvider.user!.name,
+                                      style: StyleConstants.titleTextReg,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 3,
+                                    ),
+                                    Text(
+                                      userProvider.user!.college,
+                                      style: StyleConstants.descTextReg,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                  userLevel[1].toString() +
+                                      '/' +
+                                      userLevel[2].toString(),
+                                  style: StyleConstants.subTextReg),
+                              SizedBox(
+                                height: height * 0.01,
+                              ),
+                              LinearProgressIndicator(
+                                value: userLevel[1] / userLevel[2],
+                                valueColor: AlwaysStoppedAnimation(
+                                    StyleConstants.lightBlack),
+                                backgroundColor:
+                                    StyleConstants.lightBlack.withOpacity(0.5),
+                              ),
+                              SizedBox(
+                                height: height * 0.01,
+                              ),
+                              Text('Level ' + userLevel[0].toString(),
+                                  style: StyleConstants.subTextReg),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: height * 0.05,
-                ),
-                Text(
-                  'Your Jobs and Events',
-                  style: StyleConstants.medTextBold,
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                Container(
-                  height: height * 0.25,
-                  child: _buildUserOpportunities(),
-                ),
-                SizedBox(
-                  height: height * 0.05,
-                ),
-                Text(
-                  'Featured Jobs and Events',
-                  style: StyleConstants.medTextBold,
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                Container(
-                  height: height * 0.25,
-                  child: _buildAllOpportunities(),
-                ),
-                SizedBox(
-                  height: height * 0.05,
-                ),
-                Text(
-                  'Top 10 Schools',
-                  style: StyleConstants.medTextBold,
-                ),
-                Container(
-                    height: height * 0.5,
-                    child: _buildTopSchools()),
-              ],
+                  SizedBox(
+                    height: height * 0.05,
+                  ),
+                  Text(
+                    'Your Jobs and Events',
+                    style: StyleConstants.medTextBold,
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  Container(
+                    height: height * 0.25,
+                    child: _buildUserOpportunities(),
+                  ),
+                  SizedBox(
+                    height: height * 0.05,
+                  ),
+                  Text(
+                    'Featured Jobs and Events',
+                    style: StyleConstants.medTextBold,
+                  ),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  Container(
+                    height: height * 0.25,
+                    child: _buildAllOpportunities(),
+                  ),
+                  SizedBox(
+                    height: height * 0.05,
+                  ),
+                  Text(
+                    'Top 10 Schools',
+                    style: StyleConstants.medTextBold,
+                  ),
+                  Container(height: height * 0.6, child: _buildTopSchools()),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );} else {
+      );
+    } else {
       return const Scaffold();
     }
   }
-
-
 
   Widget _buildUserOpportunities() {
     List<Widget> cards = [];
@@ -318,6 +327,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ));
     }
     return ListView.builder(
+        shrinkWrap: true,
         itemCount: colleges.length,
         itemBuilder: (BuildContext context, int index) {
           return FadeAnimationLeft(
