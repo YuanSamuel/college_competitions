@@ -144,7 +144,7 @@ class _EventMapWidgetState extends State<EventMapWidget> {
                       child: Image(
                         image: organizer != null
                             ? Image.network(organizer!.profileUrl).image
-                            : AssetImage('assets/profpic1.jpg'),
+                            : Image.network('https://firebasestorage.googleapis.com/v0/b/college-competitions.appspot.com/o/profilePictures%2FRectangle%20443.png?alt=media&token=a67e01cf-d7f2-4163-bd8d-5d9797743403').image,
                         fit: BoxFit.cover,
                       ),
                     ),
